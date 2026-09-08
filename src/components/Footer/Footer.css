@@ -1,0 +1,426 @@
+.site-footer {
+  position: relative;
+  width: 100%;
+  margin-top: 100px;
+  background: transparent;
+}
+
+/* Shared Animated Hover Underline effect (reusable with Header) */
+.hover-underline {
+  position: relative;
+  text-decoration: none !important;
+}
+
+.hover-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0%;
+  height: 1.5px;
+  background-color: var(--footer-accent-color);
+  transition: width var(--transition-speed) var(--transition-smooth);
+}
+
+.hover-underline:hover::after {
+  width: 100%;
+}
+
+/* Container wrapping paper image and overlaid content */
+.torn-paper-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Torn paper background image stretched underneath - Fixed Dark Mode & Extreme Zoom Scaling */
+.torn-paper-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill; /* Stretches 100% proportionally so torn edge NEVER separates from content at small zoom levels (50%-75%) */
+  filter: var(--torn-paper-filter);
+  transition: filter var(--transition-speed) var(--transition-smooth);
+  z-index: 1;
+}
+
+/* Content positioned DIRECTLY over the torn paper background */
+.torn-paper-overlay-content {
+  position: relative;
+  z-index: 2;
+  padding: clamp(65px, 5.5vw, 85px) clamp(20px, 3.5vw, 48px) clamp(16px, 2vw, 24px) clamp(20px, 3.5vw, 48px);
+  color: var(--footer-accent-color);
+}
+
+.serotoninn-footer-container {
+  max-width: 1350px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+/* --- DESKTOP LAYOUT --- */
+.serotoninn-nav-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.serotoninn-nav-group {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.serotoninn-link {
+  font-family: var(--font-primary);
+  font-size: clamp(0.7rem, 1vw, 0.8rem);
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: var(--footer-accent-color);
+  text-transform: uppercase;
+  opacity: 0.85;
+  transition: opacity var(--transition-speed) ease;
+}
+
+.serotoninn-link:hover {
+  opacity: 1;
+}
+
+/* Giant Center Serotoninn Style Stacked Logo */
+.serotoninn-brand-center {
+  position: relative;
+  padding: 10px 0 0 0;
+  display: flex;
+  align-items: center; /* Horizontally aligned across top & bottom text HOANGF HISP */
+  justify-content: space-between;
+  gap: clamp(16px, 2.5vw, 36px);
+  flex-wrap: wrap; /* Allows responsive wrapping on extreme zoom levels (150%+) without overflowing */
+}
+
+.serotoninn-logo-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  line-height: 0.85;
+}
+
+.serotoninn-logo-top {
+  font-family: var(--font-logo);
+  font-size: clamp(2.8rem, 8vw, 7.2rem);
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  color: var(--footer-accent-color);
+  text-transform: uppercase;
+  margin: 0;
+  opacity: 0.92;
+}
+
+.serotoninn-logo-bottom {
+  font-family: var(--font-logo);
+  font-size: clamp(2.8rem, 8vw, 7.2rem);
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  color: var(--footer-accent-color);
+  text-transform: uppercase;
+  margin: 0;
+  padding-left: clamp(2.5ch, 4.2ch, 4.4ch);
+  opacity: 0.92;
+}
+
+/* Middle Section Label in the empty space between logo and icons */
+.brand-middle-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-left: auto;
+  margin-right: clamp(16px, 3vw, 48px); /* Dynamic responsive margin to keep icons strictly inside container at 150% zoom */
+  padding: 0;
+  white-space: nowrap; /* Prevents text wrapping */
+}
+
+.brand-middle-badge {
+  font-family: var(--font-primary);
+  font-size: clamp(0.72rem, 0.95vw, 0.85rem);
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: var(--footer-accent-color);
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+/* Social Icon Box Replacing PORTFOLIO badge:
+   Desktop Layout:
+   Row 1 (4 icons shifted left by 50% width of 1 button): FB, Instagram, TikTok, Threads
+   Row 2 (4 icons centered): Email, Discord, Telegram, Zalo
+*/
+.social-icon-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  margin-bottom: 4px;
+  max-width: 100%;
+}
+
+.social-row {
+  display: flex;
+  gap: 12px;
+  position: relative;
+}
+
+/* Shift Top Row 1 to the left by 50% of button width (22px) */
+.social-row.row-top {
+  transform: translateX(-22px);
+  z-index: 2;
+}
+
+.social-row.row-bottom {
+  z-index: 1;
+}
+
+.social-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px; /* Larger uniform size for all icons */
+  height: 44px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid var(--footer-border);
+  color: var(--footer-accent-color);
+  transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease, transform var(--transition-speed) ease;
+  text-decoration: none;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.social-icon-btn svg {
+  width: 21px;
+  height: 21px;
+  display: block;
+}
+
+.zalo-text-icon {
+  font-family: var(--font-primary);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+.social-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.32);
+  transform: translateY(-2px);
+}
+
+/* Desktop Bottom Grid Layout: Left Column vs Right Column */
+.serotoninn-footer-bottom-grid {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 28px;
+  padding-top: 10px;
+}
+
+/* Left Bottom Meta: ©2026_HOANGF_HISP */
+.footer-meta-left .copyright-tag {
+  font-family: var(--font-primary);
+  font-size: clamp(0.68rem, 0.9vw, 0.75rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--footer-accent-color);
+  margin: 0;
+  text-transform: uppercase;
+}
+
+/* Right Bottom Meta Column: Inline EMAIL / SUBSCRIBE & Meta links */
+.footer-meta-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 16px;
+  min-width: 320px;
+}
+
+.subscribe-compact-form {
+  display: flex;
+  align-items: flex-end;
+  gap: 24px;
+  width: 100%;
+  border-bottom: 1px solid var(--footer-border);
+  padding-bottom: 6px;
+}
+
+.form-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.input-label {
+  font-family: var(--font-primary);
+  font-size: clamp(0.6rem, 0.8vw, 0.675rem);
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: var(--footer-muted-text);
+  text-transform: uppercase;
+}
+
+.inline-email-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--font-primary);
+  font-size: clamp(0.725rem, 0.9vw, 0.8rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--footer-accent-color);
+  width: 100%;
+}
+
+.inline-sub-btn {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--font-primary);
+  font-size: clamp(0.7rem, 0.9vw, 0.775rem);
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  color: var(--footer-accent-color);
+  cursor: pointer;
+  text-transform: uppercase;
+  padding: 0;
+  transition: opacity var(--transition-speed) ease;
+}
+
+.bottom-meta-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.meta-link {
+  font-family: var(--font-primary);
+  font-size: clamp(0.65rem, 0.85vw, 0.725rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--footer-accent-color);
+  text-transform: uppercase;
+  opacity: 0.85;
+  transition: opacity var(--transition-speed) ease;
+}
+
+.meta-link:hover {
+  opacity: 1;
+}
+
+/* --- MOBILE RESPONSIVE LAYOUT STRICTLY FOR MOBILE (@media max-width: 992px) --- */
+@media (max-width: 992px) {
+  /* Shift mobile content container slightly UP for optimal vertical placement */
+  .serotoninn-footer-container {
+    margin-top: -12px;
+  }
+
+  .torn-paper-overlay-content {
+    padding: 70px 20px 135px 20px; /* Pushed top padding to 70px so GIỚI THIỆU / GITHUB sit lower below tear line */
+  }
+
+  /* 2-column grid layout for mobile nav links matching Image 5 */
+  .serotoninn-nav-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 12px; /* Extra breathing space away from upper torn paper edge */
+  }
+
+  .serotoninn-nav-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .serotoninn-brand-center {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .brand-middle-info {
+    align-items: flex-start;
+    margin: 4px 0 0 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    backdrop-filter: none;
+  }
+
+  .serotoninn-logo-bottom {
+    padding-left: 0; /* Clean stack on mobile */
+  }
+
+  /* On Mobile: Render social icon buttons strictly in 1 single clean horizontal row */
+  .social-icon-box {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap; /* Strictly 1 row, no wrapping */
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: clamp(4px, 1.8vw, 8px);
+    margin-bottom: 0;
+  }
+
+  .social-row {
+    display: contents; /* Flattens children into 1 single row on mobile */
+  }
+
+  .social-row.row-top {
+    transform: none; /* Reset desktop left offset on mobile */
+  }
+
+  .social-icon-btn {
+    flex: 1 1 0;
+    min-width: 0;
+    height: clamp(34px, 9.8vw, 44px);
+    padding: 0;
+    border-radius: 8px;
+  }
+
+  .social-icon-btn svg {
+    width: clamp(15px, 4.5vw, 20px);
+    height: clamp(15px, 4.5vw, 20px);
+  }
+
+  .zalo-text-icon {
+    font-size: clamp(0.6rem, 2.2vw, 0.75rem);
+  }
+
+  .serotoninn-footer-bottom-grid {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .footer-meta-right {
+    align-items: flex-start;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .bottom-meta-links {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+}
