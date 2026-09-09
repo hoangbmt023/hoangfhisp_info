@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
 import "./Header.css";
 
@@ -138,9 +139,9 @@ const Header = () => {
 
           {/* Centered Prominent Logo */}
           <div className="brand-logo">
-            <a href="#" className="logo-link">
+            <Link to="/" className="logo-link">
               HOANGF HISP
-            </a>
+            </Link>
           </div>
 
           {/* Right Navigation (Desktop) */}

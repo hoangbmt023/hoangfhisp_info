@@ -1,0 +1,61 @@
+.section-header-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.section-header-block.centered {
+  align-items: center;
+  text-align: center;
+}
+
+.chapter-tag {
+  font-family: var(--font-primary);
+  font-size: clamp(0.7rem, 0.9vw, 0.8rem);
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  color: var(--color-accent, #e63946);
+  text-transform: uppercase;
+  background: rgba(230, 57, 70, 0.1);
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(230, 57, 70, 0.2);
+}
+
+.section-title {
+  font-family: var(--font-logo, sans-serif);
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  color: var(--color-text);
+  margin: 0;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.section-subtitle {
+  font-family: var(--font-primary);
+  font-size: clamp(0.95rem, 1.3vw, 1.15rem);
+  font-weight: 500;
+  color: var(--footer-muted-text, #888);
+  margin: 0;
+  max-width: 680px;
+  line-height: 1.6;
+}
+
+.section-title-line {
+  width: 48px;
+  height: 3px;
+  background: var(--footer-accent-color);
+  margin-top: 8px;
+  border-radius: 2px;
+  opacity: 0.7;
+}
+
+.section-header-block.centered .section-title-line {
+  margin-left: auto;
+  margin-right: auto;
+}
