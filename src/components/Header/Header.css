@@ -5,15 +5,14 @@
   width: 100%;
   height: var(--header-height);
   background: transparent !important; /* 100% Completely background-free */
-  backdrop-filter: none !important; /* No blur background box */
+  backdrop-filter: none !important; /* Absolutely no blur box background */
   -webkit-backdrop-filter: none !important;
   z-index: 1000;
-  border-bottom: none !important; /* Absolutely no bottom border box line */
+  border-bottom: none !important;
   box-shadow: none !important;
   transition: height var(--transition-speed) var(--transition-smooth);
 }
 
-/* Extra compact header when scrolled - Still 100% background-free without box background */
 .site-header.scrolled {
   height: var(--header-height-scrolled);
   background: transparent !important;
@@ -21,6 +20,29 @@
   -webkit-backdrop-filter: none !important;
   border-bottom: none !important;
   box-shadow: none !important;
+}
+
+/* Over Dark Hero Section (Un-scrolled): Force crisp bright white text & white hover underline so navbar is 100% readable in both Light & Dark modes without any background block */
+.site-header:not(.scrolled) .nav-link,
+.site-header:not(.scrolled) .logo-link,
+.site-header:not(.scrolled) .desktop-theme-btn {
+  color: #ffffff !important;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85), 0 0 4px rgba(0, 0, 0, 0.9) !important;
+}
+
+.site-header:not(.scrolled) .nav-link:hover,
+.site-header:not(.scrolled) .nav-link.active {
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+
+.site-header:not(.scrolled) .nav-link::after {
+  background-color: #ffffff !important;
+  box-shadow: none !important;
+}
+
+.site-header:not(.scrolled) .desktop-theme-btn {
+  border-color: rgba(255, 255, 255, 0.4) !important;
 }
 
 .header-container {
