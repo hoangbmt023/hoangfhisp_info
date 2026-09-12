@@ -1,14 +1,15 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import About from '../pages/About/About';
+import Home from '../pages/Home/Home';
 import NotFound from '../pages/NotFound/NotFound';
 
 const AppRoutes = () => {
   return (
     <Routes>
-      {/* Default route serves About Me / Introduce Page */}
-      <Route path="/" element={<About />} />
-      <Route path="/about" element={<About />} />
+      {/* Default route serves Home Page */}
+      <Route path="/" element={<Home />} />
+      <Route path="/home" element={<Home />} />
+      <Route path="/about" element={<Home />} />
 
       {/* 404 Page Not Found catch-all route */}
       <Route path="*" element={<NotFound />} />

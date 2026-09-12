@@ -1,8 +1,10 @@
 .site-footer {
   position: relative;
+  z-index: 30;
   width: 100%;
-  margin-top: 100px;
-  background: transparent;
+  margin-top: 0;
+  background: transparent !important;
+  pointer-events: auto;
 }
 
 /* Shared Animated Hover Underline effect (reusable with Header) */
@@ -30,7 +32,8 @@
 .torn-paper-wrapper {
   position: relative;
   width: 100%;
-  overflow: hidden;
+  background: transparent !important;
+  overflow: visible;
 }
 
 /* Torn paper background image stretched underneath - Fixed Dark Mode & Extreme Zoom Scaling */
@@ -41,7 +44,7 @@
   width: 100%;
   height: 100%;
   object-fit: fill; /* Stretches 100% proportionally so torn edge NEVER separates from content at small zoom levels (50%-75%) */
-  filter: var(--torn-paper-filter);
+  filter: var(--torn-paper-filter) drop-shadow(0 -15px 30px rgba(0, 0, 0, 0.45));
   transition: filter var(--transition-speed) var(--transition-smooth);
   z-index: 1;
 }
@@ -193,32 +196,29 @@
   width: 44px; /* Larger uniform size for all icons */
   height: 44px;
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid var(--footer-border);
+  background: var(--social-btn-bg, rgba(255, 255, 255, 0.15));
+  border: 1px solid var(--social-btn-border, var(--footer-border));
   color: var(--footer-accent-color);
-  transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease, transform var(--transition-speed) ease;
+  transition: background-color var(--transition-speed) ease,
+              border-color var(--transition-speed) ease,
+              transform var(--transition-speed) ease,
+              color var(--transition-speed) ease;
   text-decoration: none;
   overflow: hidden;
   will-change: transform;
 }
 
 .social-icon-btn svg {
-  width: 21px;
-  height: 21px;
+  width: 20px;
+  height: 20px;
   display: block;
 }
 
-.zalo-text-icon {
-  font-family: var(--font-primary);
-  font-size: 0.75rem;
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  line-height: 1;
-}
-
 .social-icon-btn:hover {
-  background: rgba(255, 255, 255, 0.32);
+  background: var(--social-btn-hover-bg, rgba(255, 255, 255, 0.32));
+  border-color: var(--footer-accent-color);
   transform: translateY(-2px);
+  color: var(--footer-accent-color);
 }
 
 /* Desktop Bottom Grid Layout: Left Column vs Right Column */
@@ -258,6 +258,11 @@
   width: 100%;
   border-bottom: 1px solid var(--footer-border);
   padding-bottom: 6px;
+  transition: border-color var(--transition-speed) ease;
+}
+
+.subscribe-compact-form:focus-within {
+  border-bottom-color: var(--footer-accent-color);
 }
 
 .form-input-wrapper {
@@ -274,6 +279,7 @@
   letter-spacing: 0.15em;
   color: var(--footer-muted-text);
   text-transform: uppercase;
+  transition: color var(--transition-speed) ease;
 }
 
 .inline-email-input {
@@ -285,7 +291,22 @@
   font-weight: 700;
   letter-spacing: 0.12em;
   color: var(--footer-accent-color);
+  caret-color: var(--footer-accent-color);
   width: 100%;
+  transition: color var(--transition-speed) ease;
+}
+
+.inline-email-input::placeholder {
+  color: var(--footer-input-placeholder, var(--footer-muted-text));
+  opacity: 0.75;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  transition: color var(--transition-speed) ease;
+}
+
+.inline-email-input:focus {
+  outline: none;
+  color: var(--footer-accent-color);
 }
 
 .inline-sub-btn {
@@ -300,7 +321,7 @@
   cursor: pointer;
   text-transform: uppercase;
   padding: 0;
-  transition: opacity var(--transition-speed) ease;
+  transition: opacity var(--transition-speed) ease, color var(--transition-speed) ease;
 }
 
 .bottom-meta-links {
@@ -317,7 +338,7 @@
   color: var(--footer-accent-color);
   text-transform: uppercase;
   opacity: 0.85;
-  transition: opacity var(--transition-speed) ease;
+  transition: opacity var(--transition-speed) ease, color var(--transition-speed) ease;
 }
 
 .meta-link:hover {
@@ -326,6 +347,10 @@
 
 /* --- MOBILE RESPONSIVE LAYOUT STRICTLY FOR MOBILE (@media max-width: 992px) --- */
 @media (max-width: 992px) {
+  .site-footer {
+    margin-top: 0;
+  }
+
   /* Shift mobile content container slightly UP for optimal vertical placement */
   .serotoninn-footer-container {
     margin-top: -12px;
@@ -422,5 +447,9 @@
   .bottom-meta-links {
     flex-wrap: wrap;
     gap: 16px;
+  }
+
+  .torn-paper-overlay-content {
+    padding-bottom: calc(140px + env(safe-area-inset-bottom, 0px)); /* Clearance cao hơn mobile-ios-bottom-dock */
   }
 }
