@@ -1,0 +1,12 @@
+/* Skills Page / Chapter 02 Section */
+.skills-section {
+  padding: 90px 24px;
+  position: relative;
+}
+
+.skills-grid-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+}

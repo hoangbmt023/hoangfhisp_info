@@ -1,186 +1,435 @@
-.about-page-container {
+/* ==========================================================================
+   ABOUT / CHAPTER 01 - SEAMLESS LOOKBOOK GALLERY (EXACT 4:5 PANORAMA ALIGNMENT)
+   ========================================================================== */
+
+.about-editorial-section {
+  position: relative;
   width: 100%;
-  position: relative;
+  height: 380vh; /* Smooth scroll duration */
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  margin: 0;
+  padding: 0;
 }
 
-/* Hero Section Styling */
-.about-hero-section {
-  min-height: 75vh;
+.about-sticky-container {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 120px 24px 60px 24px;
-  position: relative;
+  overflow: hidden;
+  z-index: 10;
+  background-color: var(--bg-color);
 }
 
-.hero-content-box {
-  max-width: 900px;
+/* --------------------------------------------------------------------------
+   Left Sidebar: Clean, Spacious, Minimalist
+   -------------------------------------------------------------------------- */
+.about-editorial-sidebar {
+  flex: 0 0 280px;
+  width: 280px;
+  max-width: 25vw;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 20px;
+  justify-content: space-between;
+  padding: calc(var(--header-height) + clamp(20px, 3vh, 32px)) clamp(24px, 2.5vw, 40px) clamp(24px, 3vh, 36px);
+  background: var(--bg-color);
+  border: none;
+  z-index: 5;
+  box-sizing: border-box;
 }
 
-.hero-badge {
+.about-sidebar-top {
+  display: flex;
+  align-items: center;
+}
+
+.about-editorial-title {
+  color: #ff3b30; /* Editorial accent red */
   font-family: var(--font-primary);
-  font-size: clamp(0.7rem, 0.9vw, 0.8rem);
+  font-size: clamp(1rem, 1.25vw, 1.15rem);
   font-weight: 800;
-  letter-spacing: 0.25em;
-  color: var(--footer-accent-color);
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  background: rgba(255, 255, 255, 0.08);
-  padding: 6px 16px;
-  border-radius: 20px;
-  border: 1px solid var(--footer-border, rgba(255, 255, 255, 0.15));
-}
-
-.hero-title-main {
-  font-family: var(--font-logo, sans-serif);
-  font-size: clamp(3rem, 8.5vw, 6.5rem);
-  font-weight: 900;
-  letter-spacing: 0.04em;
-  color: var(--color-text);
-  margin: 0;
-  line-height: 0.95;
-  text-transform: uppercase;
-}
-
-.hero-narrative-intro {
-  font-family: var(--font-primary);
-  font-size: clamp(1.05rem, 1.6vw, 1.35rem);
-  font-weight: 500;
-  line-height: 1.6;
-  color: var(--footer-muted-text, #888);
-  max-width: 720px;
   margin: 0;
 }
 
-.hero-mood-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid var(--footer-border, rgba(255, 255, 255, 0.1));
-  padding: 8px 18px;
-  border-radius: 30px;
-  font-size: 0.85rem;
-  color: var(--footer-accent-color);
-  margin-top: 12px;
-}
-
-.mood-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #2ecc71;
-  box-shadow: 0 0 8px #2ecc71;
-}
-
-/* Chapter Section Layout */
-.narrative-chapter-section {
-  padding: 90px 24px;
-  position: relative;
-}
-
-.narrative-chapter-section.alt-bg {
-  background: rgba(255, 255, 255, 0.02);
-  border-top: 1px solid var(--footer-border, rgba(255, 255, 255, 0.05));
-  border-bottom: 1px solid var(--footer-border, rgba(255, 255, 255, 0.05));
-}
-
-.chapter-inner-container {
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.story-paragraph-block {
+.about-sidebar-middle {
+  margin: auto 0;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  font-family: var(--font-primary);
-  font-size: clamp(1rem, 1.3vw, 1.15rem);
-  line-height: 1.8;
-  color: var(--color-text);
+  gap: clamp(24px, 4vh, 42px);
+}
+
+.editorial-meta-tags {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 4.5vh, 48px);
+}
+
+.editorial-tag {
+  font-family: monospace, sans-serif;
+  font-size: clamp(0.85rem, 1vw, 0.95rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
   opacity: 0.9;
-  max-width: 900px;
 }
 
-.story-paragraph-block p {
-  margin: 0;
-}
-
-/* Skills Grid Layout */
-.skills-grid-wrapper {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 24px;
-  margin-top: 32px;
-}
-
-/* Perspective Cards */
-.perspective-cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
-  margin-top: 32px;
-}
-
-.perspective-card {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--footer-border, rgba(255, 255, 255, 0.1));
-  backdrop-filter: blur(10px);
-  border-radius: 16px;
-  padding: 32px 28px;
-  position: relative;
-  transition: transform var(--transition-speed) ease, border-color var(--transition-speed) ease;
-}
-
-.perspective-card:hover {
-  transform: translateY(-6px);
-  border-color: var(--footer-accent-color);
-}
-
-.card-number {
-  font-family: var(--font-logo, sans-serif);
-  font-size: 2.5rem;
-  font-weight: 900;
-  color: var(--footer-accent-color);
-  opacity: 0.3;
-  margin-bottom: 12px;
-  line-height: 1;
-}
-
-.card-title {
+.about-short-quote {
   font-family: var(--font-primary);
-  font-size: 1.2rem;
-  font-weight: 800;
-  color: var(--color-text);
-  margin: 0 0 10px 0;
-}
-
-.card-desc {
-  font-family: var(--font-primary);
-  font-size: 0.92rem;
+  font-size: 0.86rem;
+  font-weight: 500;
   line-height: 1.65;
-  color: var(--footer-muted-text, #888);
+  color: var(--text-secondary);
   margin: 0;
+  max-width: 220px;
+  animation: quoteFade 0.4s ease forwards;
 }
 
-/* Epilogue Section */
-.epilogue-section {
-  padding-bottom: 40px;
+@keyframes quoteFade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.epilogue-text {
+.about-sidebar-bottom {
+  padding-top: 20px;
+  width: 100%;
+}
+
+.editorial-progress-line {
+  width: 100%;
+  height: 4px;
+  background: var(--border-color);
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.editorial-progress-bar {
+  height: 100%;
+  width: 10%;
+  background: var(--text-primary);
+  border-radius: 2px;
+  transition: width 0.05s linear;
+}
+
+/* --------------------------------------------------------------------------
+   Right Viewport: Seamless Slices (4:5 Aspect Ratio, 100% Pixel Aligned)
+   -------------------------------------------------------------------------- */
+.about-gallery-viewport {
+  flex: 1;
+  height: calc(100% - var(--header-height));
+  margin-top: var(--header-height);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.about-gallery-track {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  height: min(78vh, calc(100% - 32px)); /* Căn giữa hoàn hảo giữa header và cạnh dưới */
+  gap: 0; /* No gaps, images touch seamless edge-to-edge */
+  margin: 0;
+  padding: 0;
+  will-change: transform;
+}
+
+/* Each card is sized strictly by its natural 4:5 aspect ratio */
+.about-gallery-card {
+  flex: 0 0 auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-sizing: border-box;
+  margin: 0 -1px 0 0; /* Overlap by 1px to prevent subpixel rendering gaps */
+  padding: 0;
+  border: none;
+  outline: none;
+}
+
+/* Image Box strictly locked to 4/5 (2160x2700) to prevent any vertical/horizontal shift */
+.card-image-box {
+  flex: 1;
+  height: calc(100% - 40px);
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  position: relative;
+  background: transparent;
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  font-size: 0;
+  line-height: 0;
+}
+
+.card-image-el {
+  width: 100%;
+  height: 100%;
+  object-fit: fill; /* Exact 1:1 pixel mapping into 4:5 box */
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  vertical-align: middle;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+/* Bottom Meta Bar */
+.card-meta-bar {
+  height: 40px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  background: var(--bg-color);
+  font-family: monospace, sans-serif;
+  box-sizing: border-box;
+}
+
+.card-meta-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1px;
+}
+
+.card-meta-title {
   font-family: var(--font-primary);
-  font-size: clamp(1.05rem, 1.5vw, 1.25rem);
-  line-height: 1.7;
-  color: var(--footer-muted-text, #888);
-  max-width: 680px;
-  margin: 0 auto;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  line-height: 1.1;
 }
 
-.text-center {
-  text-align: center;
+.card-meta-code {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  line-height: 1.1;
+}
+
+.card-meta-center {
+  display: flex;
+  align-items: center;
+}
+
+.card-size-tags {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+}
+
+.card-meta-right {
+  display: flex;
+  align-items: center;
+}
+
+.card-meta-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #4361ee;
+  display: inline-block;
+}
+
+/* --------------------------------------------------------------------------
+   Mobile & Responsive Adjustments (Đồng bộ với Header & iOS Bottom Dock)
+   -------------------------------------------------------------------------- */
+@media (max-width: 992px) {
+  .about-editorial-section {
+    height: 420vh;
+  }
+
+  .about-sticky-container {
+    flex-direction: column;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  .about-editorial-sidebar {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    padding: calc(var(--header-height) + 8px) 18px 12px;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-sizing: border-box;
+    background: var(--bg-color);
+  }
+
+  .about-sidebar-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .about-editorial-title {
+    font-size: 1.05rem;
+    font-weight: 900;
+  }
+
+  .about-sidebar-middle {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 0;
+    gap: 8px;
+  }
+
+  .editorial-meta-tags {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+  }
+
+  .editorial-tag {
+    font-size: 0.82rem;
+    font-weight: 800;
+  }
+
+  .about-short-quote {
+    display: block;
+    font-family: var(--font-primary);
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--text-primary);
+    font-weight: 500;
+    margin: 0;
+    max-width: 100%;
+  }
+
+  .about-sidebar-bottom {
+    position: absolute;
+    bottom: calc(118px + env(safe-area-inset-bottom, 0px));
+    left: 20px;
+    right: 20px;
+    width: auto;
+    padding: 0;
+    margin: 0;
+    z-index: 20;
+    pointer-events: none;
+  }
+
+  .editorial-progress-line {
+    width: 100%;
+    height: 4px;
+    background: var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .editorial-progress-bar {
+    height: 100%;
+    border-radius: 4px;
+    background: var(--text-primary);
+  }
+
+  /* Viewport chừa khoảng trống phía dưới cho cả thanh progress được nâng cao và dock iOS */
+  .about-gallery-viewport {
+    flex: 1;
+    width: 100%;
+    height: auto;
+    margin-top: 0;
+    padding-bottom: calc(134px + env(safe-area-inset-bottom, 0px));
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  /* Tăng kích thước ảnh to và ấn tượng hơn nữa trên mobile */
+  .about-gallery-track {
+    height: min(60vh, 510px);
+    align-items: stretch;
+  }
+
+  .about-gallery-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-image-box {
+    flex: 1;
+    height: calc(100% - 48px);
+    aspect-ratio: 4 / 5;
+  }
+
+  /* Card Meta Bar chữ to, rõ nét, không có viền thừa */
+  .card-meta-bar {
+    height: 48px;
+    padding: 6px 12px;
+    background: var(--bg-color);
+    border: none;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 5;
+  }
+
+  .card-meta-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+    min-width: 0;
+  }
+
+  .card-meta-title {
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .card-meta-code {
+    font-size: 0.72rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--text-secondary);
+  }
+
+  .card-size-tags {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+  }
+
+  .card-meta-dot {
+    width: 6px;
+    height: 6px;
+  }
 }

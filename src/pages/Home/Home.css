@@ -1,0 +1,69 @@
+.home-page-container {
+  width: 100%;
+  position: relative;
+}
+
+/* Pinned Sticky Home Hero Layer */
+.home-hero-pinned-layer {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 1;
+  overflow: hidden;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Home Content Layer (Sliding Chapter Pages) that overlaps the pinned Hero */
+.home-content-sliding-layer {
+  position: relative;
+  z-index: 10;
+  background-color: var(--bg-color);
+  box-shadow: 0 -25px 60px rgba(0, 0, 0, 0.45);
+  border-top: 1px solid var(--border-color);
+  transition: background-color var(--transition-speed) var(--transition-smooth);
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.chapter-inner-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Pinned Epilogue / Contact layer & sliding Footer reveal container */
+.home-footer-reveal-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+}
+
+.contact-pinned-layer {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-color);
+  transition: background-color var(--transition-speed) var(--transition-smooth);
+  overflow: hidden;
+}
+
+.footer-sliding-layer {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  background: transparent;
+}

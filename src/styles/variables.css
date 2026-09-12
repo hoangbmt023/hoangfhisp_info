@@ -40,6 +40,10 @@
   --footer-accent-color: #ffffff;
   --footer-muted-text: rgba(255, 255, 255, 0.75);
   --footer-border: rgba(255, 255, 255, 0.25);
+  --social-btn-bg: rgba(255, 255, 255, 0.15);
+  --social-btn-hover-bg: rgba(255, 255, 255, 0.32);
+  --social-btn-border: rgba(255, 255, 255, 0.25);
+  --footer-input-placeholder: rgba(255, 255, 255, 0.65);
 }
 
 [data-theme="dark"] {
@@ -71,4 +75,8 @@
   --footer-accent-color: #ffffff;
   --footer-muted-text: rgba(255, 255, 255, 0.65);
   --footer-border: rgba(255, 255, 255, 0.2);
+  --social-btn-bg: rgba(255, 255, 255, 0.12);
+  --social-btn-hover-bg: rgba(255, 255, 255, 0.28);
+  --social-btn-border: rgba(255, 255, 255, 0.2);
+  --footer-input-placeholder: rgba(255, 255, 255, 0.45);
 }

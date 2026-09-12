@@ -1,4 +1,4 @@
-.about-hero-serotoninn-wrapper {
+.home-hero-serotoninn-wrapper {
   position: relative;
   width: 100%;
   height: 100vh;
@@ -136,7 +136,7 @@
   opacity: 0.95;
 }
 
-/* Center Split Portrait Container (Large 4/5 height un-cropped image expanding naturally to touch borders) */
+/* Center Split Portrait Container */
 .hero-center-portrait-box {
   position: absolute;
   bottom: 0;
@@ -180,7 +180,7 @@
   object-position: bottom center;
 }
 
-/* Authentic Vertical Ripped Paper Tear Separator Image (Spans full 100vh from top edge to bottom edge of video) */
+/* Authentic Vertical Ripped Paper Tear Separator Image */
 .vertical-torn-tear-line {
   position: absolute;
   top: 0;
@@ -210,59 +210,6 @@
 @keyframes fadeInOpacity {
   from { opacity: 0.3; }
   to { opacity: 1; }
-}
-
-/* Bottom Headline Capsule & Interactive Button */
-.hero-bottom-capsule-bar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  z-index: 6;
-  position: relative;
-}
-
-.capsule-title-group {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 16px;
-  background: rgba(0, 0, 0, 0.65);
-  border: 1px solid var(--footer-border, rgba(255, 255, 255, 0.2));
-  backdrop-filter: blur(16px);
-  padding: 12px 28px;
-  border-radius: 30px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-}
-
-.capsule-main-text {
-  font-family: var(--font-logo, sans-serif);
-  font-size: clamp(1.4rem, 4vw, 3.5rem);
-  font-weight: 900;
-  letter-spacing: 0.04em;
-  color: var(--color-accent, #e63946);
-  text-transform: uppercase;
-  margin: 0;
-  line-height: 1;
-}
-
-.see-story-btn {
-  background: transparent;
-  border: none;
-  color: var(--footer-accent-color);
-  font-family: var(--font-primary);
-  font-size: clamp(0.75rem, 1vw, 0.9rem);
-  font-weight: 800;
-  letter-spacing: 0.15em;
-  cursor: pointer;
-  text-transform: uppercase;
-  padding: 0;
-  transition: transform var(--transition-speed) ease;
-}
-
-.see-story-btn:hover {
-  transform: scale(1.05);
 }
 
 /* Mobile Responsiveness */
@@ -296,7 +243,6 @@
     line-height: 1.2;
   }
 
-  /* On Mobile: Poster/Portrait image maintains large 4/5 (80%) height un-cropped, expanding width to touch borders */
   .hero-center-portrait-box {
     top: 20vh;
     top: 20dvh;
@@ -312,9 +258,5 @@
     height: 80dvh;
     height: calc(100vh * 4 / 5);
     height: calc(100dvh * 4 / 5);
-  }
-
-  .capsule-main-text {
-    font-size: clamp(1rem, 4vw, 1.8rem);
   }
 }
