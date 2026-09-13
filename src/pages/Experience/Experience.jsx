@@ -1,9 +1,11 @@
 import React from 'react';
 import SectionHeader from '../../components/common/SectionHeader';
 import TimelineChapter from '../../components/common/TimelineChapter';
+import useScrollReveal from '../../hooks/useScrollReveal';
 import './Experience.css';
 
 const Experience = () => {
+  const sectionRef = useScrollReveal();
   const timelineData = [
     {
       year: '2021',
@@ -32,7 +34,7 @@ const Experience = () => {
   ];
 
   return (
-    <section id="experience" className="narrative-chapter-section experience-section">
+    <section id="experience" className="narrative-chapter-section experience-section" ref={sectionRef}>
       <div className="chapter-inner-container">
         <SectionHeader
           chapter="CHAPTER 03"

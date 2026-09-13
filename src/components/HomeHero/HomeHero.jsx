@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import heroPortrait from "../../assets/images/hero-portrait.png";
 import heroPortraitAlt from "../../assets/images/hero-portrait-alt.png";
 import heroBgVideo from "../../assets/videos/hero-bg-video.mp4";
@@ -6,6 +8,8 @@ import heroBgVideoAlt from "../../assets/videos/hero-bg-video-alt.mp4";
 import verticalTornEdge from "../../assets/images/vertical-torn-edge.png";
 import verticalTornMaskRight from "../../assets/images/vertical-torn-mask-right.png";
 import "./HomeHero.css";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const HomeHero = () => {
   // Video Playlist: Play hero-bg-video.mp4 -> hero-bg-video-alt.mp4 -> loop back
@@ -86,6 +90,52 @@ const HomeHero = () => {
 
     return () => clearInterval(timer);
   }, [isVisible, portraitList.length]);
+
+  // 4. GSAP Scroll Parallax & Typography depth (ALSOK Miyagi Inspired)
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Subtle parallax on left editorial titles
+      gsap.to(".hero-editorial-left", {
+        y: -50,
+        opacity: 0.6,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".home-hero-serotoninn-wrapper",
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+
+      // Subtle parallax on right editorial taglines
+      gsap.to(".hero-editorial-right", {
+        y: -35,
+        opacity: 0.6,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".home-hero-serotoninn-wrapper",
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+
+      // Subtle depth scale on center portrait
+      gsap.to(".hero-center-portrait-box", {
+        scale: 0.95,
+        y: 20,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".home-hero-serotoninn-wrapper",
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+    });
+
+    return () => ctx.revert();
+  }, []);
 
   const currentPortrait = portraitList[portraitIndex];
 

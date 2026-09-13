@@ -3,7 +3,7 @@ import './SkillCard.css';
 
 const SkillCard = ({ category, icon, skills }) => {
   return (
-    <div className="skill-card">
+    <div className="skill-card reveal-stagger-item">
       <div className="skill-card-header">
         {icon && <span className="skill-icon">{icon}</span>}
         <h3 className="skill-category-title">{category}</h3>

@@ -36,7 +36,11 @@ export const useHorizontalScroll = ({
       if (scrollHeight <= 0) return;
 
       const currentScroll = -rect.top;
-      const progress = Math.min(Math.max(currentScroll / scrollHeight, 0), 1);
+      const rawProgress = Math.min(Math.max(currentScroll / scrollHeight, 0), 1);
+      
+      // Vùng đệm tĩnh 5% ở đầu và cuối để ổn định thị giác và triệt tiêu quán tính cuộn
+      const buffer = 0.05;
+      const progress = Math.min(Math.max((rawProgress - buffer) / (1 - 2 * buffer), 0), 1);
       setScrollProgress(progress);
 
       // Translate track horizontally

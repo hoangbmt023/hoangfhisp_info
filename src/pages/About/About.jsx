@@ -33,7 +33,7 @@ const About = ({ stories = STORIES, galleryItems = GALLERY_ITEMS }) => {
       <div className="about-sticky-container">
         {/* Left Editorial Sidebar Component */}
         <AboutSidebar
-          title="01. GIỚI THIỆU"
+          title="GIỚI THIỆU"
           story={currentStory}
           activeStoryIndex={activeStoryIndex}
           progressBarRef={progressBarRef}

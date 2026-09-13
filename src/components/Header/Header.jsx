@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useTheme } from "../../context/ThemeContext";
+import { getLenis } from "../../hooks/useSmoothScroll";
 import MobileDock from "./MobileDock";
 import "./Header.css";
 
@@ -76,6 +77,43 @@ const Header = () => {
     window.addEventListener("scroll", handleSectionScroll, { passive: true });
     handleSectionScroll();
     return () => window.removeEventListener("scroll", handleSectionScroll);
+  }, []);
+
+  // Handle exact pixel smooth navigation via Lenis
+  const handleNavClick = useCallback((e, href) => {
+    if (e && e.preventDefault) {
+      e.preventDefault();
+    }
+    setActiveNav(href);
+
+    const lenis = getLenis();
+
+    if (href === "#home" || href === "#") {
+      if (lenis) {
+        lenis.scrollTo(0, {
+          offset: 0,
+          duration: 1.2,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        });
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+      return;
+    }
+
+    const target = document.querySelector(href);
+    if (target) {
+      if (lenis) {
+        lenis.scrollTo(target, {
+          offset: 0,
+          duration: 1.2,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        });
+      } else {
+        const topPos = target.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({ top: topPos, behavior: "smooth" });
+      }
+    }
   }, []);
 
   // Left Nav Items
@@ -213,7 +251,7 @@ const Header = () => {
                     className={`nav-link ${
                       activeNav === item.href ? "active" : ""
                     }`}
-                    onClick={() => setActiveNav(item.href)}
+                    onClick={(e) => handleNavClick(e, item.href)}
                   >
                     {item.label}
                   </a>
@@ -227,11 +265,7 @@ const Header = () => {
             <a
               href="#home"
               className={`logo-link ${activeNav === "#home" ? "active" : ""}`}
-              onClick={(e) => {
-                e.preventDefault();
-                setActiveNav("#home");
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}
+              onClick={(e) => handleNavClick(e, "#home")}
             >
               HOANGF HISP
             </a>
@@ -247,7 +281,7 @@ const Header = () => {
                     className={`nav-link ${
                       activeNav === item.href ? "active" : ""
                     }`}
-                    onClick={() => setActiveNav(item.href)}
+                    onClick={(e) => handleNavClick(e, item.href)}
                   >
                     {item.label}
                   </a>
@@ -306,7 +340,7 @@ const Header = () => {
       <MobileDock
         items={mobileDockItems}
         activeNav={activeNav}
-        onNavClick={setActiveNav}
+        onNavClick={(e, href) => handleNavClick(e, href)}
       />
     </>
   );

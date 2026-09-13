@@ -3,10 +3,10 @@ import './TimelineChapter.css';
 
 const TimelineChapter = ({ items }) => {
   return (
-    <div className="timeline-chapter-wrapper">
+    <div className="timeline-chapter-wrapper reveal-stagger-group">
       <div className="timeline-spine"></div>
       {items.map((item, index) => (
-        <div key={index} className={`timeline-item ${index % 2 === 0 ? 'left' : 'right'}`}>
+        <div key={index} className={`timeline-item ${index % 2 === 0 ? 'left' : 'right'} reveal-stagger-item`}>
           <div className="timeline-dot">
             <span className="dot-pulse"></span>
           </div>

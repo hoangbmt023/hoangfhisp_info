@@ -1,12 +1,862 @@
-/* Skills Page / Chapter 02 Section */
-.skills-section {
-  padding: 90px 24px;
+/* ==========================================================================
+   ALSOK Miyagi 'Security+One' Style - Vietnamese Editorial Version
+   - Thanh vuông ĐỎ & ĐEN XEN KẼ NHAU theo CẶP 3 và CẶP 2
+   - Số lượng thanh tinh gọn (5 thanh mỗi bên), KHÔNG chạm dính nhau trên dưới
+   - Bố trí THỤT THÒ tự nhiên, cách 2 bên mép ~1/4 nửa màn hình (8vw - 14vw)
+   - Chữ Đỏ & Đen cách nhau rõ ràng, không đánh sáng
+   - Khi ở đúng Skill: Giữ khoảng cách lề 2 bên rộng rãi, thoáng mắt
+   ========================================================================== */
+
+.alsok-skills-wrapper {
   position: relative;
+  width: 100%;
+  height: 500vh; /* 5 nấc cuộn: 4 nấc mở media + 1 nấc cuộn để hiện nội dung ở giữa từ trên xuống */
+  background-color: var(--bg-color, #ffffff);
+  transition: background-color var(--transition-speed) var(--transition-smooth);
 }
 
-.skills-grid-wrapper {
+.alsok-sticky-container {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
+
+/* --------------------------------------------------------------------------
+   1. Các thanh vuông ĐỎ & ĐEN xen kẽ theo CỤM 3 & CỤM 2 (Không chạm nhau)
+   -------------------------------------------------------------------------- */
+.alsok-bg-stripes {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* Base style cho thanh vuông */
+.stripe-item {
+  position: absolute;
+  border-radius: 0;
+  will-change: transform, opacity;
+}
+
+/* ================== MÀU ĐỎ ================== */
+.stripe-red.stripe-left {
+  background: linear-gradient(to right, rgba(230, 57, 70, 0.48) 0%, rgba(230, 57, 70, 0.22) 45%, rgba(230, 57, 70, 0) 100%);
+}
+
+.stripe-red.stripe-right {
+  background: linear-gradient(to left, rgba(230, 57, 70, 0.48) 0%, rgba(230, 57, 70, 0.22) 45%, rgba(230, 57, 70, 0) 100%);
+}
+
+[data-theme='dark'] .stripe-red.stripe-left {
+  background: linear-gradient(to right, rgba(230, 57, 70, 0.65) 0%, rgba(230, 57, 70, 0.28) 45%, rgba(0, 0, 0, 0) 100%);
+}
+
+[data-theme='dark'] .stripe-red.stripe-right {
+  background: linear-gradient(to left, rgba(230, 57, 70, 0.65) 0%, rgba(230, 57, 70, 0.28) 45%, rgba(0, 0, 0, 0) 100%);
+}
+
+/* ================== MÀU ĐEN ================== */
+.stripe-black.stripe-left {
+  background: linear-gradient(to right, rgba(17, 17, 17, 0.45) 0%, rgba(17, 17, 17, 0.2) 45%, rgba(17, 17, 17, 0) 100%);
+}
+
+.stripe-black.stripe-right {
+  background: linear-gradient(to left, rgba(17, 17, 17, 0.45) 0%, rgba(17, 17, 17, 0.2) 45%, rgba(17, 17, 17, 0) 100%);
+}
+
+[data-theme='dark'] .stripe-black.stripe-left {
+  background: linear-gradient(to right, rgba(241, 245, 249, 0.48) 0%, rgba(241, 245, 249, 0.2) 45%, rgba(0, 0, 0, 0) 100%);
+}
+
+[data-theme='dark'] .stripe-black.stripe-right {
+  background: linear-gradient(to left, rgba(241, 245, 249, 0.48) 0%, rgba(241, 245, 249, 0.2) 45%, rgba(0, 0, 0, 0) 100%);
+}
+
+/* ================== BÊN TRÁI: CỤM 3 (TRÊN) & CỤM 2 (DƯỚI) ================== */
+/* Cụm 3 thanh ở trên (kết thúc ở ~30%, cách đều tâm chữ) */
+.sl-1 { top: 10%; height: 24px; width: 36vw; left: 8vw; }   /* Đỏ - Dài vừa */
+.sl-2 { top: 17%; height: 44px; width: 19vw; left: 14vw; }  /* Đen - Ngắn to, thụt vào */
+.sl-3 { top: 27%; height: 22px; width: 42vw; left: 6vw; }   /* Đỏ - Rất dài, thò ra */
+
+/* Cụm 2 thanh ở dưới (bắt đầu ở 70%, cách đều tâm chữ) */
+.sl-4 { top: 70%; height: 40px; width: 22vw; left: 13vw; }  /* Đen - Vừa, thụt vào */
+.sl-5 { top: 79%; height: 24px; width: 38vw; left: 8vw; }   /* Đỏ - Dài */
+
+/* ================== BÊN PHẢI: CỤM 2 (TRÊN) & CỤM 3 (DƯỚI) ================== */
+/* Cụm 2 thanh ở trên (xích xuống ~18%, kết thúc ở ~33%, cách đều tâm chữ) */
+.sr-1 { top: 18%; height: 34px; width: 40vw; right: 8vw; }  /* Đen - Dài */
+.sr-2 { top: 26%; height: 46px; width: 18vw; right: 14vw; } /* Đỏ - Ngắn to, thụt vào */
+
+/* Cụm 3 thanh ở dưới (xích xuống, bắt đầu ở 68%, cách đều tâm chữ) */
+.sr-3 { top: 68%; height: 22px; width: 44vw; right: 6vw; }  /* Đen - Rất dài, thò ra */
+.sr-4 { top: 75%; height: 42px; width: 23vw; right: 13vw; } /* Đỏ - Vừa, thụt vào */
+.sr-5 { top: 84%; height: 26px; width: 36vw; right: 9vw; }  /* Đen - Dài vừa */
+
+/* --------------------------------------------------------------------------
+   2. Dòng chữ lớn: "KỸ NĂNG+" (ĐỎ) & "CHUYÊN MÔN" (ĐEN)
+   -------------------------------------------------------------------------- */
+.alsok-split-title-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+  pointer-events: none;
+  padding: 0 30px;
+}
+
+.alsok-split-words-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(30px, 5vw, 75px);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.alsok-word-left {
+  font-family: var(--font-editorial, 'Anton', sans-serif);
+  font-size: clamp(2.4rem, 6.5vw, 6.8rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #ff3b30;
+  text-shadow: none;
+  will-change: transform, opacity;
+}
+
+.alsok-word-right {
+  font-family: var(--font-editorial, 'Anton', sans-serif);
+  font-size: clamp(2.4rem, 6.5vw, 6.8rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #111111;
+  text-shadow: none;
+  will-change: transform, opacity;
+}
+
+[data-theme='dark'] .alsok-word-right {
+  color: #f1f5f9;
+}
+
+/* --------------------------------------------------------------------------
+   3. Khung Media 3 Cột:
+   - Cách 2 bên màn hình một khoảng thoáng đãng
+   - Thẻ vuông vức (border-radius: 4px), viền đậm sắc sảo
+   -------------------------------------------------------------------------- */
+.alsok-media-reveal-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform, clip-path, opacity;
+  background: none;
+  background-color: transparent;
+  padding: calc(var(--header-height, 80px) + 12px) clamp(32px, 5.5vw, 90px) 24px;
+}
+
+.alsok-3col-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 24px;
-  margin-top: 32px;
+  grid-template-columns: 1fr 1.65fr 1fr;
+  gap: 22px;
+  width: 100%;
+  max-width: 1380px;
+  height: 84vh;
+  max-height: 840px;
+  align-items: stretch;
+}
+
+/* CỘT TRÁI - TỰ ĐỘNG CHẠY LÊN VÔ TẬN (SEAMLESS INFINITE LOOP - KHÔNG GIẬT, KHÔNG NHẢY) */
+.alsok-col-left {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+  position: relative;
+  background: none;
+}
+
+.alsok-track-left {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: max-content;
+}
+
+.alsok-track-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex-shrink: 0;
+  will-change: transform;
+  animation: alsokScrollGroupUp 25s linear infinite;
+}
+
+.alsok-col-left:hover .alsok-track-group {
+  animation-play-state: paused;
+}
+
+@keyframes alsokScrollGroupUp {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, calc(-100% - 16px), 0);
+  }
+}
+
+/* CỘT PHẢI - TỰ ĐỘNG CHẠY XUỐNG VÔ TẬN (SEAMLESS INFINITE LOOP - KHÔNG GIẬT, KHÔNG NHẢY) */
+.alsok-col-right {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+  position: relative;
+  background: none;
+}
+
+.alsok-track-right {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: max-content;
+}
+
+.alsok-track-group-down {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex-shrink: 0;
+  will-change: transform;
+  animation: alsokScrollGroupDown 25s linear infinite;
+}
+
+.alsok-col-right:hover .alsok-track-group-down {
+  animation-play-state: paused;
+}
+
+@keyframes alsokScrollGroupDown {
+  0% {
+    transform: translate3d(0, calc(-100% - 16px), 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* ==========================================================================
+   THẺ CÔNG NGHỆ BÊN TRÁI - ẢNH NỀN SKILLS/BG + ICON THẬT (ĐỘ SÁNG CHUẨN, KHÔNG HOVER)
+   ========================================================================== */
+.alsok-tech-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  overflow: hidden;
+  aspect-ratio: 16/10;
+  border: 1.5px solid var(--border-color, #111111);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  cursor: default;
+  background: transparent;
+}
+
+[data-theme='dark'] .alsok-tech-card {
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Ảnh nền random từ skills/bg - ĐỘ SÁNG RÕ NÉT, TỰ NHIÊN */
+.alsok-tech-bg-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 1;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Quầng tương phản trung tâm - Giữ nền ảnh sáng nét, giảm tối thiểu lớp phủ */
+.alsok-tech-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(0, 0, 0, 0.4) 0%,
+    rgba(0, 0, 0, 0.2) 40%,
+    rgba(0, 0, 0, 0.05) 75%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  opacity: 0.28;
+  z-index: 2;
+  pointer-events: none;
+}
+
+[data-theme='dark'] .alsok-tech-bg-overlay {
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(0, 0, 0, 0.45) 0%,
+    rgba(0, 0, 0, 0.25) 40%,
+    rgba(0, 0, 0, 0.08) 75%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  opacity: 0.32;
+}
+
+/* ICON TO, RÕ NÉT TRÊN NỀN ẢNH - TĂNG ĐỘ SÁNG VÀ ĐỘ TƯƠNG PHẢN RỰC RỠ */
+.alsok-tech-icon {
+  position: relative;
+  z-index: 3;
+  width: clamp(76px, 8.5vw, 108px);
+  height: clamp(76px, 8.5vw, 108px);
+  max-width: 88%;
+  max-height: 88%;
+  object-fit: contain;
+  filter: brightness(1.22) contrast(1.1) drop-shadow(0 6px 18px rgba(0, 0, 0, 0.85)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6));
+}
+
+.alsok-photo-card {
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--card-bg, #ffffff);
+  border: 1.5px solid var(--border-color, #111111);
+  aspect-ratio: 16/10;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+[data-theme='dark'] .alsok-photo-card {
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.alsok-photo-card:hover {
+  transform: translateY(-4px);
+  border-color: #e63946;
+}
+
+.alsok-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0.88) contrast(1.08);
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.alsok-photo-card:hover .alsok-card-img {
+  transform: scale(1.05);
+  filter: brightness(0.98) contrast(1.12);
+}
+
+.alsok-card-badge {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  right: 8px;
+  padding: 8px 12px;
+  background: rgba(17, 17, 17, 0.88);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 2px;
+  border-left: 3px solid #e63946;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.badge-cat {
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #e63946;
+  letter-spacing: 0.1em;
+}
+
+.badge-name {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.25;
+}
+
+/* CỘT GIỮA - CHUẨN TYPOGRAPHY ALSOK MIYAGI (CHẾ ĐỘ SÁNG: NỀN ĐEN TUYỀN / CHẾ ĐỘ TỐI: NỀN TRẮNG TINH) */
+.alsok-col-center {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #000000;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
+  padding: clamp(38px, 6vh, 64px) clamp(20px, 2.5vw, 36px);
+  color: #ffffff;
+  height: 100%;
+  transition: background-color var(--transition-speed), border-color var(--transition-speed), color var(--transition-speed);
+}
+
+[data-theme='dark'] .alsok-col-center {
+  background: #ffffff;
+  border: 1.5px solid rgba(0, 0, 0, 0.16);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6);
+  color: #000000;
+}
+
+.alsok-center-bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  opacity: 0.55;
+  filter: contrast(1.15) brightness(0.95);
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity var(--transition-speed);
+}
+
+[data-theme='dark'] .alsok-center-bg-img {
+  opacity: 0.32;
+  filter: contrast(1.2) brightness(1.05);
+}
+
+.alsok-center-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.45) 0%,
+    rgba(0, 0, 0, 0.65) 45%,
+    rgba(0, 0, 0, 0.92) 100%
+  );
+  pointer-events: none;
+  z-index: 2;
+  transition: background var(--transition-speed);
+}
+
+[data-theme='dark'] .alsok-center-overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.55) 0%,
+    rgba(255, 255, 255, 0.72) 45%,
+    rgba(255, 255, 255, 0.94) 100%
+  );
+}
+
+/* PHẦN TRÊN: RECRUIT / SKILLS + SUBTITLE + LINE */
+.alsok-center-top-block {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.alsok-recruit-headline {
+  font-family: var(--font-editorial, 'Anton', sans-serif);
+  font-size: clamp(2.4rem, 4vw, 4.2rem);
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  line-height: 1;
+  margin: 0;
+  text-transform: uppercase;
+  transition: color var(--transition-speed);
+}
+
+[data-theme='dark'] .alsok-recruit-headline {
+  color: #111111;
+}
+
+.alsok-recruit-sub {
+  font-family: var(--font-primary, sans-serif);
+  font-size: clamp(0.72rem, 0.9vw, 0.85rem);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: rgba(255, 255, 255, 0.88);
+  margin-top: 12px;
+  text-transform: uppercase;
+  transition: color var(--transition-speed);
+}
+
+[data-theme='dark'] .alsok-recruit-sub {
+  color: #444444;
+}
+
+.alsok-recruit-divider {
+  width: 36px;
+  height: 2px;
+  background: #ffffff;
+  margin: 15px auto 0;
+  opacity: 0.85;
+  transition: background-color var(--transition-speed);
+}
+
+[data-theme='dark'] .alsok-recruit-divider {
+  background: #111111;
+}
+
+/* Ở GIỮA: SLOGAN CHÍNH 2 DÒNG TO ĐẬM */
+.alsok-center-main-manifesto {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: auto 0;
+}
+
+.manifesto-line {
+  font-family: var(--font-primary, sans-serif);
+  font-size: clamp(1.8rem, 2.7vw, 2.85rem);
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  line-height: 1.2;
+  text-transform: uppercase;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.7);
+  transition: color var(--transition-speed), text-shadow var(--transition-speed);
+}
+
+[data-theme='dark'] .manifesto-line {
+  color: #111111;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+/* MÔ TẢ NGẮN Ở GIỮA */
+.alsok-center-narrative {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: clamp(0.82rem, 1vw, 0.96rem);
+  font-weight: 500;
+  line-height: 1.6;
+  margin: 20px 0 28px;
+  transition: color var(--transition-speed);
+}
+
+[data-theme='dark'] .alsok-center-narrative {
+  color: #333333;
+}
+
+.alsok-center-narrative p {
+  margin: 0;
+}
+
+/* PHẦN DƯỚI: ĐIỂM NHẤN NGHỆ THUẬT */
+.alsok-center-bottom-callout {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.callout-lead {
+  font-family: var(--font-primary, sans-serif);
+  font-size: clamp(1.15rem, 1.65vw, 1.55rem);
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+  transition: color var(--transition-speed), text-shadow var(--transition-speed);
+}
+
+[data-theme='dark'] .callout-lead {
+  color: #111111;
+  text-shadow: none;
+}
+
+.callout-sub {
+  font-family: var(--font-primary, sans-serif);
+  font-size: clamp(0.92rem, 1.2vw, 1.12rem);
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.92);
+  letter-spacing: 0.02em;
+  transition: color var(--transition-speed);
+}
+
+[data-theme='dark'] .callout-sub {
+  color: #444444;
+}
+
+/* --------------------------------------------------------------------------
+   Mobile & Tablet Responsive Layout - Phóng to Center full màn, Ảnh Trái ở TRÊN, Ảnh Phải ở DƯỚI
+   -------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------
+   Mobile & Tablet Responsive Layout - BỐ CỤC CHUẨN MOBILE, KHỐI NỘI DUNG LIỀN MẠCH, CARD TO
+   -------------------------------------------------------------------------- */
+@media (max-width: 991px) {
+  .alsok-media-reveal-layer {
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  .alsok-3col-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    max-height: 100dvh;
+    overflow: hidden;
+    display: block;
+    gap: 0;
+    padding: 0;
+  }
+
+  /* 1. KHỐI CENTER PHÓNG TO FULL MÀN HÌNH - BỐ CỤC GỌN GÀNG, CHỮ TO RÕ */
+  .alsok-col-center {
+    position: absolute;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    /* Tăng thêm khoảng cách từ cạnh dưới card trên xuống chữ RECRUIT, và từ chữ dưới lên card dưới */
+    padding: calc(var(--header-height, 56px) + clamp(105px, 16.5vh, 140px)) 20px clamp(200px, 28vh, 245px) 20px;
+    gap: clamp(22px, 3.4vh, 34px);
+    box-sizing: border-box;
+  }
+
+  [data-theme='dark'] .alsok-col-center {
+    border: none;
+    box-shadow: none;
+  }
+
+  /* KHỐI 1: RECRUIT + LINE - CHỮ TO HƠN */
+  .alsok-center-top-block {
+    margin: 0;
+  }
+
+  .alsok-recruit-headline {
+    font-family: var(--font-editorial, 'Anton', sans-serif);
+    font-size: clamp(2.5rem, 9vw, 3.6rem);
+    line-height: 0.95;
+    letter-spacing: 0.08em;
+  }
+
+  .alsok-recruit-sub {
+    font-size: clamp(0.84rem, 2.8vw, 0.98rem);
+    letter-spacing: 0.22em;
+    margin-top: 8px;
+  }
+
+  .alsok-recruit-divider {
+    margin: 12px auto 0;
+    width: 36px;
+    height: 2.5px;
+  }
+
+  /* KHỐI 2: SLOGAN CHÍNH 2 DÒNG - CHỮ TO ĐẬM RÕ NÉT */
+  .alsok-center-main-manifesto {
+    margin: 0;
+    gap: 9px;
+  }
+
+  .manifesto-line {
+    font-size: clamp(1.75rem, 6.5vw, 2.55rem);
+    font-weight: 900;
+    line-height: 1.22;
+    letter-spacing: 0.02em;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.7);
+  }
+
+  [data-theme='dark'] .manifesto-line {
+    text-shadow: none;
+  }
+
+  /* KHỐI 3: MÔ TẢ NGẮN - TO DỄ ĐỌC */
+  .alsok-center-narrative {
+    margin: 0;
+    gap: 6px;
+    font-size: clamp(0.9rem, 3.2vw, 1.05rem);
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  [data-theme='dark'] .alsok-center-narrative {
+    color: #333333;
+  }
+
+  /* KHỐI 4: KÊU GỌI / CALLOUT - ĐẬM RÕ */
+  .alsok-center-bottom-callout {
+    margin: 0;
+    gap: 5px;
+  }
+
+  .callout-lead {
+    font-size: clamp(1.15rem, 4.2vw, 1.45rem);
+    font-weight: 800;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+  }
+
+  [data-theme='dark'] .callout-lead {
+    text-shadow: none;
+  }
+
+  .callout-sub {
+    font-size: clamp(0.92rem, 3.4vw, 1.15rem);
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.95);
+  }
+
+  [data-theme='dark'] .callout-sub {
+    color: #444444;
+  }
+
+  /* 2. DẢI ẢNH TRÊN: TO HƠN, NẰM Ở ĐỈNH */
+  .alsok-col-left {
+    position: absolute;
+    top: calc(var(--header-height, 56px) + 6px);
+    left: 0;
+    right: 0;
+    z-index: 5;
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: clamp(80px, 13.5vh, 106px);
+    overflow: hidden;
+    flex-shrink: 0;
+    background: none;
+    padding: 0 4px;
+    pointer-events: none;
+  }
+
+  .alsok-track-left {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: max-content;
+    height: 100%;
+  }
+
+  .alsok-track-group {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    flex-shrink: 0;
+    height: 100%;
+    will-change: transform;
+    animation: alsokScrollGroupLeft 20s linear infinite;
+  }
+
+  /* 3. DẢI ẢNH DƯỚI: TO HƠN, NẰM TRÊN THANH TASKBAR / DOCK */
+  .alsok-col-right {
+    position: absolute;
+    bottom: clamp(100px, 14.5vh, 126px);
+    left: 0;
+    right: 0;
+    z-index: 5;
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: clamp(80px, 13.5vh, 106px);
+    overflow: hidden;
+    flex-shrink: 0;
+    background: none;
+    padding: 0 4px;
+    pointer-events: none;
+  }
+
+  .alsok-track-right {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: max-content;
+    height: 100%;
+  }
+
+  .alsok-track-group-down {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    flex-shrink: 0;
+    height: 100%;
+    will-change: transform;
+    animation: alsokScrollGroupRight 20s linear infinite;
+  }
+
+  /* Style thẻ ảnh to hơn, sắc nét trên mobile */
+  .alsok-tech-card {
+    height: 100%;
+    aspect-ratio: 16/10;
+    flex-shrink: 0;
+    border-radius: 5px;
+    border: 1.5px solid rgba(255, 255, 255, 0.28);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+  }
+
+  .alsok-tech-icon {
+    width: clamp(52px, 11.5vw, 74px);
+    height: clamp(52px, 11.5vw, 74px);
+  }
+}
+
+@keyframes alsokScrollGroupLeft {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(calc(-100% - 10px), 0, 0);
+  }
+}
+
+@keyframes alsokScrollGroupRight {
+  0% {
+    transform: translate3d(calc(-100% - 10px), 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (max-width: 768px) {
+  .alsok-split-words-row {
+    flex-direction: column;
+    gap: 12px;
+  }
 }

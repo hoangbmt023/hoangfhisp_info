@@ -1,0 +1,108 @@
+/* ==========================================================================
+   Lenis Smooth Scroll Core Styles
+   ========================================================================== */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   ALSOK Miyagi Inspired Scroll Animations & Reveal Styles
+   ========================================================================== */
+
+/* Initial states for ScrollTrigger animations */
+.reveal-fade-up {
+  opacity: 0;
+  transform: translateY(45px);
+  will-change: transform, opacity;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-fade-up.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Sticky Card Stacking effect (Inspired by ALSOK Security/Recruit cards) */
+.sticky-stack-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.sticky-stack-card {
+  position: sticky;
+  top: calc(var(--header-height, 80px) + 30px);
+  background: var(--card-bg, #ffffff);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.4s ease,
+              border-color var(--transition-speed) ease;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 2;
+}
+
+/* Interactive Text Hover Slide effect (Inspired by ALSOK buttons) */
+.alsok-btn-slide {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 12px 28px;
+  border-radius: 9999px;
+  border: 1px solid var(--border-color);
+  background: transparent;
+  color: var(--text-primary);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.alsok-btn-slide .btn-text-track {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.alsok-btn-slide:hover .btn-text-track {
+  transform: translateY(-50%);
+}
+
+.alsok-btn-slide .btn-text-primary,
+.alsok-btn-slide .btn-text-hover {
+  display: block;
+  line-height: 1.2;
+}
+
+.alsok-btn-slide .btn-text-hover {
+  color: var(--accent-color, #e63946);
+}
+
+/* Parallax Box Container */
+.parallax-item {
+  will-change: transform;
+}
