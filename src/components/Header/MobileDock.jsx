@@ -18,7 +18,7 @@ export const MobileDock = ({ items = [], activeNav = "#home", onNavClick }) => {
             title={item.title}
             aria-label={item.title}
             className={`ios-dock-item ${activeNav === item.href ? "active" : ""}`}
-            onClick={() => onNavClick?.(item.href)}
+            onClick={(e) => onNavClick?.(e, item.href)}
           >
             <span className="dock-icon">{item.icon}</span>
           </a>

@@ -3,8 +3,12 @@ import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
 import Header from './components/Header/Header';
 import AppRoutes from './routes/AppRoutes';
+import { useSmoothScroll } from './hooks/useSmoothScroll';
+import './styles/scroll-effects.css';
 
 function App() {
+  useSmoothScroll();
+
   return (
     <ThemeProvider>
       <BrowserRouter>

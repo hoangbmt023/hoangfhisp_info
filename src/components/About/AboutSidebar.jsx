@@ -6,7 +6,7 @@ import React from "react";
  * gồm Tiêu đề, các Tags định danh, Đoạn trích dẫn câu chuyện và Thanh tiến trình.
  */
 export const AboutSidebar = ({
-  title = "01. GIỚI THIỆU",
+  title = "GIỚI THIỆU",
   story,
   activeStoryIndex,
   progressBarRef,
