@@ -1,23 +1,202 @@
+/* ==========================================================================
+   CONTACT SECTION - EXACT 1 SCREEN 100VH GSAP PINNED
+   ========================================================================== */
+
+:root {
+  --rose-size: 360px;
+}
+
 .contact-section {
-  width: 100%;
-  height: 100%;
-  padding: 40px 24px;
   position: relative;
-  z-index: 5;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+  transition: background-color var(--transition-speed) var(--transition-smooth);
+}
+
+/* --------------------------------------------------------------------------
+   EDITORIAL HEADER (ABSOLUTE OVERLAY ON TOP)
+   -------------------------------------------------------------------------- */
+.contact-header-container {
+  position: absolute;
+  top: calc(var(--header-height, 76px) + clamp(16px, 2.5vh, 32px));
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(92%, 960px);
+  text-align: center;
+  z-index: 2;
+  will-change: transform, opacity;
+  pointer-events: auto;
+}
+
+.contact-header-meta {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: clamp(8px, 1.4vh, 14px);
 }
 
-.epilogue-text {
+.contact-chapter-badge {
+  font-family: monospace, sans-serif;
+  font-size: clamp(1.05rem, 1.35vw, 1.32rem);
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: #ff3b30;
+  text-transform: uppercase;
+}
+
+.contact-main-headline {
   font-family: var(--font-primary);
-  font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+  font-size: clamp(1.8rem, 4.2vw, 3.5rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin: 6px 0 clamp(10px, 1.5vh, 16px);
+  line-height: 1.12;
+}
+
+.contact-manifesto-text {
+  font-family: var(--font-primary);
+  font-size: clamp(0.85rem, 1.1vw, 1rem);
+  font-weight: 500;
   line-height: 1.7;
   color: var(--text-secondary);
-  max-width: 680px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  max-width: 800px;
   margin: 0 auto;
 }
 
-.text-center {
-  text-align: center;
+.contact-accent-red {
+  color: #ff3b30;
+  font-weight: 800;
+}
+
+/* --------------------------------------------------------------------------
+   ROSE MASK PORTAL & FULL-VIEWPORT MEDIA STAGE
+   -------------------------------------------------------------------------- */
+.contact-portal-stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  overflow: hidden;
+}
+
+/* Layer 1: Ảnh nền căn phòng full màn hình 100vh 100vw độc lập (1 màn hình) */
+.contact-portal-image-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-mask-image: url('../../assets/images/contacts/rose-mask-fill.png');
+  mask-image: url('../../assets/images/contacts/rose-mask-fill.png');
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  z-index: 5;
+  will-change: mask-size, -webkit-mask-size, mask-position, -webkit-mask-position;
+}
+
+/* Ảnh nền căn phòng phủ kín 100% màn hình chuẩn chỉnh 1 màn hình */
+.contact-portal-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Layer 2: Nét vẽ viền hoa hồng đè chính xác 100% lên khẩu độ mặt nạ */
+.contact-rose-lines-overlay {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  object-fit: contain;
+  pointer-events: none;
+  z-index: 10;
+  will-change: opacity, width, height;
+  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.4));
+  transition: opacity 0.3s ease;
+}
+
+[data-theme="dark"] .contact-rose-lines-overlay {
+  filter: drop-shadow(0 2px 14px rgba(255, 255, 255, 0.12)) drop-shadow(0 4px 18px rgba(0, 0, 0, 0.7));
+}
+
+/* --------------------------------------------------------------------------
+   SCROLL TIP INDICATOR (ABSOLUTE OVERLAY AT BOTTOM)
+   -------------------------------------------------------------------------- */
+.contact-scroll-tip {
+  position: absolute;
+  bottom: clamp(24px, 3.5vh, 36px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: monospace, sans-serif;
+  font-size: clamp(0.76rem, 0.9vw, 0.85rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  z-index: 2;
+  will-change: transform, opacity;
+  white-space: nowrap;
+}
+
+.tip-accent {
+  color: #ff3b30;
+  font-weight: 800;
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE QUERIES (MOBILE / TABLET)
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .contact-header-container {
+    top: calc(var(--header-height, 56px) + clamp(12px, 2.2vh, 20px));
+    width: 92%;
+  }
+
+  .contact-header-meta {
+    margin-bottom: 6px;
+  }
+
+  .contact-chapter-badge {
+    font-size: clamp(0.85rem, 3.6vw, 0.98rem);
+    letter-spacing: 0.14em;
+    font-weight: 800;
+  }
+
+  .contact-main-headline {
+    font-size: clamp(1.45rem, 6.2vw, 1.95rem);
+    margin: 4px 0 8px;
+    line-height: 1.18;
+    letter-spacing: -0.015em;
+  }
+
+  .contact-manifesto-text {
+    font-size: clamp(0.76rem, 3.3vw, 0.86rem);
+    line-height: 1.55;
+    letter-spacing: 0.025em;
+    max-width: 95%;
+  }
+
+  /* Đưa TIP lên TRÊN HOÀN TOÀN thanh task mobile dock (dock cao ~72px + bottom 28px = 100px -> đặt 115px) */
+  .contact-scroll-tip {
+    bottom: clamp(110px, 15vh, 125px);
+    font-size: 0.76rem;
+    letter-spacing: 0.12em;
+  }
 }

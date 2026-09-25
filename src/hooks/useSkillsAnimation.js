@@ -31,19 +31,19 @@ export const useSkillsAnimation = ({
         pointerEvents: "none",
       });
 
+      const getCenterElements = () =>
+        wrapper.querySelectorAll(
+          ".alsok-center-top-block, .alsok-center-main-manifesto, .alsok-center-narrative, .alsok-center-bottom-callout"
+        );
+
       // Khởi tạo ẩn nội dung ở giữa để khi mở hết media mới tự động chạy từ trên xuống
-      gsap.set(
-        [
-          ".alsok-center-top-block",
-          ".alsok-center-main-manifesto",
-          ".alsok-center-narrative",
-          ".alsok-center-bottom-callout",
-        ],
-        {
+      const initialCenterEls = getCenterElements();
+      if (initialCenterEls.length > 0) {
+        gsap.set(initialCenterEls, {
           opacity: 0,
           y: -30,
-        }
-      );
+        });
+      }
 
       // =========================================================================
       // SCROLLTRIGGER 1: KHI CUỘN TỪ TRÊN (ABOUT) XUỐNG SKILLS
@@ -103,44 +103,32 @@ export const useSkillsAnimation = ({
 
       const autoRevealCenter = () => {
         if (centerRevealed) return;
+        const els = getCenterElements();
+        if (!els.length) return;
         centerRevealed = true;
-        gsap.to(
-          [
-            ".alsok-center-top-block",
-            ".alsok-center-main-manifesto",
-            ".alsok-center-narrative",
-            ".alsok-center-bottom-callout",
-          ],
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.7,
-            stagger: 0.14,
-            ease: "power3.out",
-            overwrite: "auto",
-          }
-        );
+        gsap.to(els, {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          stagger: 0.14,
+          ease: "power3.out",
+          overwrite: "auto",
+        });
       };
 
       const autoHideCenter = () => {
         if (!centerRevealed) return;
+        const els = getCenterElements();
+        if (!els.length) return;
         centerRevealed = false;
-        gsap.to(
-          [
-            ".alsok-center-bottom-callout",
-            ".alsok-center-narrative",
-            ".alsok-center-main-manifesto",
-            ".alsok-center-top-block",
-          ],
-          {
-            opacity: 0,
-            y: -25,
-            duration: 0.3,
-            stagger: 0.04,
-            ease: "power2.in",
-            overwrite: "auto",
-          }
-        );
+        gsap.to(Array.from(els).reverse(), {
+          opacity: 0,
+          y: -25,
+          duration: 0.3,
+          stagger: 0.04,
+          ease: "power2.in",
+          overwrite: "auto",
+        });
       };
 
       // =========================================================================
@@ -155,6 +143,25 @@ export const useSkillsAnimation = ({
           end: "bottom bottom",
           scrub: 0.7,
           invalidateOnRefresh: true,
+          onRefresh: (self) => {
+            if (self.progress > 0.01) {
+              mediaLayer.style.visibility = "visible";
+            } else {
+              mediaLayer.style.visibility = "hidden";
+            }
+
+            if (self.progress >= 0.65) {
+              mediaLayer.style.pointerEvents = "auto";
+            } else {
+              mediaLayer.style.pointerEvents = "none";
+            }
+
+            if (self.progress >= 0.82) {
+              autoRevealCenter();
+            } else if (self.progress < 0.76) {
+              autoHideCenter();
+            }
+          },
           onUpdate: (self) => {
             if (self.progress > 0.01) {
               mediaLayer.style.visibility = "visible";

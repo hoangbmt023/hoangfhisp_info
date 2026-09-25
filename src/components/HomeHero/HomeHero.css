@@ -140,24 +140,17 @@
 .hero-center-portrait-box {
   position: absolute;
   bottom: 0;
-  top: 20vh;
-  top: 20dvh;
-  top: calc(100vh * 1 / 5);
-  top: calc(100dvh * 1 / 5);
   left: 50%;
   transform: translateX(-50%);
-  width: auto;
-  min-width: 100%;
-  max-width: none;
-  height: 80vh;
-  height: 80dvh;
-  height: calc(100vh * 4 / 5);
-  height: calc(100dvh * 4 / 5);
+  width: 100%;
+  height: calc(100% * 5 / 6);
   display: flex;
   justify-content: center;
   align-items: flex-end;
   z-index: 3;
   user-select: none;
+  pointer-events: none;
+  box-sizing: border-box;
 }
 
 .portrait-img {
@@ -168,6 +161,7 @@
   display: block;
   object-fit: contain;
   object-position: bottom center;
+  margin: 0 auto;
 }
 
 .portrait-img.main-portrait {
@@ -215,11 +209,11 @@
 /* Mobile Responsiveness */
 @media (max-width: 992px) {
   .hero-serotoninn-grid {
-    padding: 80px 20px 30px 20px;
+    box-sizing: border-box;
   }
 
   .hero-editorial-left {
-    top: 16%;
+    top: 14%;
     left: 20px;
   }
 
@@ -233,7 +227,7 @@
   }
 
   .hero-editorial-right {
-    bottom: 16%;
+    bottom: 14%;
     right: 20px;
     max-width: 240px;
   }
@@ -244,19 +238,19 @@
   }
 
   .hero-center-portrait-box {
-    top: 20vh;
-    top: 20dvh;
-    top: calc(100vh * 1 / 5);
-    top: calc(100dvh * 1 / 5);
+    top: auto;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
+    width: 100%;
+    height: calc(100% * 5 / 6);
+  }
+
+  .portrait-img {
+    height: 100%;
     width: auto;
-    min-width: 100vw;
     max-width: none;
-    height: 80vh;
-    height: 80dvh;
-    height: calc(100vh * 4 / 5);
-    height: calc(100dvh * 4 / 5);
+    object-fit: contain;
+    object-position: bottom center;
   }
 }
