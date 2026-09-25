@@ -24,11 +24,12 @@ const Home = () => {
         <Projects />
       </div>
 
-      {/* Pinned Epilogue / Contact layer & sliding Footer reveal container */}
+      {/* Pinned Contact section & Curtain-reveal Footer container */}
       <div className="home-footer-reveal-container">
         <div className="contact-pinned-layer">
           <Contact />
         </div>
+        <div className="footer-reveal-spacer" />
         <div className="footer-sliding-layer">
           <Footer />
         </div>

@@ -60,7 +60,7 @@ const Header = () => {
 
       // Exact section bounding check
       const sectionIds = ["about", "skills", "experience", "projects", "contact"];
-      const triggerLine = 220;
+      const triggerLine = window.innerHeight * 0.4;
 
       for (const id of sectionIds) {
         const el = document.getElementById(id);
