@@ -1,0 +1,681 @@
+/* ==========================================================================
+   DUO CONTROLS - REFINED DOCK, POSE PRESETS, SCRUBBER & DUAL SIDES
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. BOTTOM DOCK (SCRUBBER & PRESETS)
+   -------------------------------------------------------------------------- */
+.duo-bottom-dock {
+  position: absolute;
+  bottom: clamp(20px, 3.5vh, 40px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(92%, 460px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+/* Pose Presets */
+.duo-pose-presets {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  border: none;
+  padding: 0;
+}
+
+.duo-pose-btn {
+  width: 42px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  color: var(--text-secondary, #666);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+[data-theme="dark"] .duo-pose-btn {
+  background: rgba(30, 30, 30, 0.65);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.duo-pose-btn:hover {
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--text-primary, #111);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="dark"] .duo-pose-btn:hover {
+  background: rgba(50, 50, 50, 0.9);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+
+.duo-pose-btn.active {
+  background: #ff3b30;
+  border-color: #ff3b30;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(255, 59, 48, 0.35);
+}
+
+/* Fold Toolbar Row */
+.duo-fold-toolbar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Play/Pause Button */
+.duo-play-btn,
+.duo-reset-btn {
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 50%;
+  color: var(--text-primary, #222);
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+[data-theme="dark"] .duo-play-btn,
+[data-theme="dark"] .duo-reset-btn {
+  background: rgba(35, 35, 35, 0.75);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+}
+
+.duo-play-btn:hover,
+.duo-reset-btn:hover {
+  transform: scale(1.06);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.duo-play-btn:active,
+.duo-reset-btn:active {
+  transform: scale(0.95);
+}
+
+/* Scrubber Slider */
+.duo-fold-scrubber {
+  flex: 1;
+  height: 50px;
+  position: relative;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  cursor: ew-resize;
+  user-select: none;
+  touch-action: none;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+[data-theme="dark"] .duo-fold-scrubber {
+  background: rgba(35, 35, 35, 0.75);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+}
+
+.duo-fold-scrubber.is-dragging {
+  box-shadow: 0 0 0 2px #ff3b30, 0 8px 24px rgba(255, 59, 48, 0.25);
+}
+
+.duo-fold-track {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.duo-fold-fill {
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255, 59, 48, 0.15), rgba(255, 59, 48, 0.35));
+  position: relative;
+  transition: width 0.04s linear;
+}
+
+[data-theme="dark"] .duo-fold-fill {
+  background: linear-gradient(90deg, rgba(255, 59, 48, 0.2), rgba(255, 59, 48, 0.45));
+}
+
+.duo-fold-notch {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 24px;
+  background: #ff3b30;
+  border-radius: 2px;
+  box-shadow: 0 0 8px rgba(255, 59, 48, 0.8);
+}
+
+.duo-fold-caption {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  pointer-events: none;
+  font-family: var(--font-primary, sans-serif);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-primary, #222);
+}
+
+[data-theme="dark"] .duo-fold-caption {
+  color: #ffffff;
+}
+
+.duo-fold-degrees {
+  font-family: monospace, sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #ff3b30;
+  letter-spacing: 0.02em;
+}
+
+.duo-fold-sheen {
+  opacity: 0.3;
+}
+
+/* Orbit Hint */
+.duo-orbit-hint {
+  font-family: monospace, sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary, #888);
+  margin-top: 10px;
+  pointer-events: none;
+  text-align: center;
+}
+
+.hint-mobile {
+  display: none;
+}
+
+@media (pointer: coarse), (max-width: 768px) {
+  .hint-desktop {
+    display: none;
+  }
+  .hint-mobile {
+    display: inline;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. VIEW TOOLS (LEFT SIDE - CINEMATIC & LIGHTING)
+   -------------------------------------------------------------------------- */
+.duo-view-tools-wrapper {
+  position: absolute;
+  left: clamp(20px, 3.5vw, 48px);
+  bottom: clamp(24px, 4vh, 48px);
+  z-index: 12;
+  pointer-events: auto;
+}
+
+.duo-cinematic-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 999px;
+  color: var(--text-primary, #222);
+  font-family: var(--font-primary, sans-serif);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+[data-theme="dark"] .duo-cinematic-btn {
+  background: rgba(35, 35, 35, 0.75);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+}
+
+.duo-cinematic-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.duo-cinematic-btn.selected {
+  background: #ff3b30;
+  border-color: #ff3b30;
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(255, 59, 48, 0.35);
+}
+
+/* Lens Panel Popover */
+.duo-lens-panel {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 0;
+  width: 320px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
+  padding: 16px;
+  animation: duo-pop-up 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 20;
+}
+
+[data-theme="dark"] .duo-lens-panel {
+  background: rgba(26, 26, 26, 0.92);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.6);
+}
+
+@keyframes duo-pop-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.duo-lens-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.15);
+}
+
+.duo-lens-header h3 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-primary, #222);
+  margin: 0;
+}
+
+[data-theme="dark"] .duo-lens-header h3 {
+  color: #ffffff;
+}
+
+.duo-lens-close {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary, #777);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  display: flex;
+}
+
+.duo-lens-close:hover {
+  color: #ff3b30;
+}
+
+.duo-lens-tabs {
+  display: flex;
+  gap: 6px;
+  background: rgba(128, 128, 128, 0.1);
+  padding: 3px;
+  border-radius: 10px;
+  margin-bottom: 14px;
+}
+
+.duo-tab-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 10px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary, #666);
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+[data-theme="dark"] .duo-tab-btn {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.duo-tab-btn.active {
+  background: #ffffff;
+  color: var(--text-primary, #111);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="dark"] .duo-tab-btn.active {
+  background: rgba(60, 60, 60, 0.9);
+  color: #ffffff;
+}
+
+.duo-lens-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.duo-control-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.duo-control-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-primary, #333);
+}
+
+[data-theme="dark"] .duo-control-label {
+  color: #eee;
+}
+
+.duo-switch-input {
+  appearance: none;
+  width: 40px;
+  height: 22px;
+  background: rgba(128, 128, 128, 0.3);
+  border-radius: 999px;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  transition: background 0.2s ease;
+}
+
+.duo-switch-input:checked {
+  background: #ff3b30;
+}
+
+.duo-switch-input::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  background: #ffffff;
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+}
+
+.duo-switch-input:checked::after {
+  transform: translateX(18px);
+}
+
+.duo-slider-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: opacity 0.2s ease;
+}
+
+.duo-slider-group.disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.duo-slider-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary, #666);
+}
+
+.duo-slider-value {
+  color: #ff3b30;
+  font-family: monospace;
+}
+
+.duo-range-slider {
+  width: 100%;
+  accent-color: #ff3b30;
+  cursor: pointer;
+}
+
+.duo-slider-endpoints {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: var(--text-secondary, #888);
+}
+
+/* Lighting Presets Grid */
+.duo-section-desc {
+  font-size: 0.76rem;
+  color: var(--text-secondary, #777);
+  margin: 0 0 6px;
+}
+
+.duo-lighting-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 180px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.duo-light-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  background: rgba(128, 128, 128, 0.08);
+  border: 1px solid transparent;
+  border-radius: 10px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.duo-light-card:hover {
+  background: rgba(128, 128, 128, 0.16);
+}
+
+.duo-light-card.active {
+  background: rgba(255, 59, 48, 0.1);
+  border-color: #ff3b30;
+}
+
+.duo-light-preview {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.light-preset-0 { background: radial-gradient(circle, #ffffff, #a0a0a0); }
+.light-preset-1 { background: radial-gradient(circle, #ff9a44, #ff3600); }
+.light-preset-2 { background: radial-gradient(circle, #a1c4fd, #c2e9fb); }
+.light-preset-3 { background: radial-gradient(circle, #fbc2eb, #a18cd1); }
+.light-preset-4 { background: radial-gradient(circle, #00f2fe, #4facfe); }
+
+.duo-light-info {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.duo-light-info strong {
+  font-size: 0.8rem;
+  color: var(--text-primary, #222);
+}
+
+[data-theme="dark"] .duo-light-info strong {
+  color: #ffffff;
+}
+
+.duo-light-info small {
+  font-size: 0.68rem;
+  color: var(--text-secondary, #777);
+}
+
+/* --------------------------------------------------------------------------
+   3. FINISH PICKER (RIGHT SIDE - SEPARATED TO THE RIGHT)
+   -------------------------------------------------------------------------- */
+.duo-finish-picker-container {
+  position: absolute;
+  right: clamp(20px, 3.5vw, 48px);
+  bottom: clamp(24px, 4vh, 48px);
+  z-index: 12;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 14px 8px 16px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 999px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  pointer-events: auto;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+[data-theme="dark"] .duo-finish-picker-container {
+  background: rgba(35, 35, 35, 0.75);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+}
+
+.duo-finish-label {
+  font-family: var(--font-primary, sans-serif);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-primary, #222);
+  white-space: nowrap;
+}
+
+[data-theme="dark"] .duo-finish-label {
+  color: #ffffff;
+}
+
+.duo-finish-options {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.duo-finish-swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.duo-finish-swatch.swatch-white {
+  background: #e8e9e5;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
+}
+
+.duo-finish-swatch.swatch-night {
+  background: #3d4148;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+.duo-finish-swatch:hover {
+  transform: scale(1.15);
+}
+
+.duo-finish-swatch.selected {
+  border-color: #ff3b30;
+  box-shadow: 0 0 10px rgba(255, 59, 48, 0.4);
+  transform: scale(1.1);
+}
+
+.swatch-inner-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ff3b30;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.18s ease;
+}
+
+.duo-finish-swatch.selected .swatch-inner-dot {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE LAYOUT (MOBILE & TABLET)
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .duo-bottom-dock {
+    bottom: clamp(14px, 2.5vh, 24px);
+    width: 94%;
+  }
+
+  .duo-view-tools-wrapper {
+    left: 12px;
+    bottom: clamp(145px, 20vh, 160px);
+  }
+
+  .duo-lens-panel {
+    width: 280px;
+  }
+
+  .duo-finish-picker-container {
+    right: 12px;
+    bottom: clamp(145px, 20vh, 160px);
+    padding: 6px 10px 6px 12px;
+  }
+
+  .duo-finish-label {
+    font-size: 0.74rem;
+  }
+
+  .duo-cinematic-btn {
+    padding: 8px 14px;
+    font-size: 0.78rem;
+  }
+}
