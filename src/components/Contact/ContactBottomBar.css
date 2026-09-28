@@ -1,0 +1,279 @@
+/* ==========================================================================
+   CONTACT BOTTOM BAR - EXACT CLONE OF HOÀNG DŨNG BRXE-BLOCK (#brxe-vxzbzv)
+   Layout: [Logo 1] | [Info 1] | [Listen here] | [Info 2] | [Logo 2]
+   ========================================================================== */
+
+.contact-bottom-bar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  justify-items: center;
+  padding: 0 clamp(16px, 2.5vw, 36px) 18px clamp(16px, 2.5vw, 36px);
+  z-index: 15;
+  column-gap: clamp(14px, 2vw, 28px);
+  mix-blend-mode: difference;
+  pointer-events: auto;
+  opacity: 0;
+  transform: translateY(24px);
+  will-change: opacity, transform;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+/* Hai cánh bên đối xứng tuyệt đối (Left Wing & Right Wing) */
+.contact-bottom-wing {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-width: 0;
+  column-gap: clamp(10px, 1.4vw, 20px);
+}
+
+/* --------------------------------------------------------------------------
+   1. BRAND LOGO STACK (TALL, BOLD & BALANCED)
+   -------------------------------------------------------------------------- */
+.contact-bottom-logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.contact-bottom-logo-stack {
+  display: flex;
+  flex-direction: column;
+  line-height: 0.8;
+  gap: 0;
+}
+
+.logo-word {
+  font-family: var(--font-logo);
+  font-size: clamp(2rem, 2.7vw, 3.2rem);
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 0.82;
+}
+
+.logo-top {
+  padding-left: 0;
+}
+
+/* Cạnh đứng chữ H lùi sang phải so với HOANGF */
+.logo-bottom {
+  padding-left: clamp(3.8ch, 4.2ch, 4.6ch);
+}
+
+/* --------------------------------------------------------------------------
+   2. TYPOGRAPHY 3-LINE INFO BLOCK (MATCHING HOÀNG DŨNG ALBUM TYPOGRAPHY FORMAT)
+   -------------------------------------------------------------------------- */
+.contact-bottom-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.contact-bottom-info-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #ffffff;
+  font-family: var(--font-primary);
+  line-height: 1.25;
+  gap: 2px;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.contact-bottom-info-block .info-line-primary {
+  font-size: clamp(12px, 0.95vw, 14px);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+.contact-bottom-info-block .info-line-secondary {
+  font-size: clamp(12px, 0.95vw, 14px);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-transform: none;
+}
+
+.contact-bottom-info-block .info-line-tertiary {
+  font-size: clamp(11px, 0.85vw, 12.5px);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  opacity: 0.88;
+}
+
+/* --------------------------------------------------------------------------
+   3. 4 VERTICAL DIVIDERS (TALLER & CLEAN 1.5PX THICKNESS)
+   -------------------------------------------------------------------------- */
+.contact-bottom-divider {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.contact-bottom-divider .divider-line {
+  border-right: 1.5px solid #ffffff;
+  height: clamp(58px, 7.5vh, 72px);
+  width: 0;
+  opacity: 1;
+}
+
+/* --------------------------------------------------------------------------
+   4. CENTER CTA BUTTON (MATCHING ORIGINAL HOÀNG DŨNG BUTTON)
+   -------------------------------------------------------------------------- */
+.contact-bottom-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-primary);
+  font-size: clamp(16px, 1.35vw, 20px);
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  padding: 8px 24px;
+  min-width: 155px;
+  min-height: 48px;
+  border-radius: 100px !important;
+  border: 1.5px solid #ffffff;
+  background-color: transparent;
+  color: #ffffff;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.contact-bottom-cta-btn:hover {
+  background-color: #ffffff;
+  color: #000000;
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.45);
+}
+
+.contact-bottom-cta-btn:active {
+  transform: scale(0.98);
+}
+
+/* --------------------------------------------------------------------------
+   5. MOBILE CREDIT ("by")
+   -------------------------------------------------------------------------- */
+.contact-bottom-mobile-credit {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE BREAKPOINTS (MATCHING HOÀNG DŨNG SITE)
+   -------------------------------------------------------------------------- */
+@media (max-width: 1279px) {
+  .logo-word {
+    font-size: clamp(1.5rem, 2vw, 2rem);
+  }
+
+  .contact-bottom-info-block .info-line-primary {
+    font-size: 11px;
+  }
+
+  .contact-bottom-info-block .info-line-secondary {
+    font-size: 12px;
+  }
+
+  .contact-bottom-info-block .info-line-tertiary {
+    font-size: 10.5px;
+  }
+
+  .contact-bottom-cta-btn {
+    font-size: 16px;
+    min-width: 130px;
+    min-height: 40px;
+    padding: 6px 18px;
+  }
+
+  .contact-bottom-divider .divider-line {
+    height: 44px;
+  }
+}
+
+@media (max-width: 991px) {
+  .contact-bottom-bar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: clamp(24px, 4.5vh, 36px);
+    bottom: 0;
+    gap: 12px;
+  }
+
+  .contact-bottom-wing {
+    display: contents;
+  }
+
+  .contact-bottom-divider {
+    display: none !important;
+  }
+
+  .hide-tablet {
+    display: none !important;
+  }
+
+  .contact-bottom-logo {
+    order: 1;
+  }
+
+  .logo-word {
+    font-size: 1.8rem;
+  }
+
+  .contact-bottom-cta-btn {
+    order: 2;
+    font-size: 15px;
+    padding: 6px 28px;
+    min-height: 38px;
+    min-width: 180px;
+  }
+
+  .contact-bottom-info {
+    order: 4;
+  }
+
+  .contact-bottom-info-block .info-line-primary {
+    font-size: 12px;
+  }
+
+  .contact-bottom-info-block .info-line-secondary {
+    font-size: 13px;
+  }
+
+  .contact-bottom-info-block .info-line-tertiary {
+    font-size: 11px;
+  }
+
+  .contact-bottom-mobile-credit {
+    display: block;
+    font-family: var(--font-primary);
+    font-weight: 900;
+    font-size: 0.95rem;
+    color: #ffffff;
+    order: 0;
+    text-transform: lowercase;
+    letter-spacing: 0.1em;
+  }
+}

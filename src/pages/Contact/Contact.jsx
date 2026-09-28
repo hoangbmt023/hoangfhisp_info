@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import ContactHeader from "../../components/Contact/ContactHeader";
 import ContactRosePortal from "../../components/Contact/ContactRosePortal";
+import ContactBottomBar from "../../components/Contact/ContactBottomBar";
 import useContactAnimation from "../../hooks/useContactAnimation";
 import "./Contact.css";
 
@@ -9,6 +10,7 @@ import "./Contact.css";
  * Chuẩn 1 màn hình (100vh) được ghim chính xác bằng GSAP Pinning:
  * - Khi cuộn tới Contact: Ghim giữ 1 màn hình, hoa hồng nở to dần mở ảnh.
  * - Khi hoa hồng biến mất hoàn toàn: Hiện đầy đủ bức ảnh nền căn phòng.
+ * - Khi banner hiện hết: Hiển thị brxe-block (Bottom Bar cloned từ Hoàng Dũng official website).
  * - Cuộn tiếp một nhịp nữa: Unpin và Footer trồi lên ngay từ đáy.
  */
 const Contact = () => {
@@ -16,6 +18,7 @@ const Contact = () => {
   const headerRef = useRef(null);
   const stageRef = useRef(null);
   const tipRef = useRef(null);
+  const bottomBarRef = useRef(null);
 
   // Hook quản lý hiệu ứng mở khẩu độ hoa hồng và GSAP Pinning
   useContactAnimation({
@@ -23,6 +26,7 @@ const Contact = () => {
     headerRef,
     stageRef,
     tipRef,
+    bottomBarRef,
   });
 
   return (
@@ -37,6 +41,9 @@ const Contact = () => {
         stageRef={stageRef}
         tipRef={tipRef}
       />
+
+      {/* Brxe-block từ trang web Hoàng Dũng (hoangdungmusic.com) - Hiện khi banner mở hết */}
+      <ContactBottomBar ref={bottomBarRef} />
     </section>
   );
 };

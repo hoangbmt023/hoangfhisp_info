@@ -17,12 +17,14 @@ export const useContactAnimation = ({
   headerRef,
   stageRef,
   tipRef,
+  bottomBarRef,
 }) => {
   useEffect(() => {
-    const wrapper = wrapperRef.current;
-    const header = headerRef.current;
-    const stage = stageRef.current;
-    const tip = tipRef.current;
+    const wrapper = wrapperRef?.current;
+    const header = headerRef?.current;
+    const stage = stageRef?.current;
+    const tip = tipRef?.current;
+    const bottomBar = bottomBarRef?.current;
 
     if (!wrapper || !stage) return;
 
@@ -132,10 +134,19 @@ export const useContactAnimation = ({
         });
       }
 
+      if (bottomBar) {
+        gsap.set(bottomBar, {
+          opacity: 0,
+          y: 24,
+          pointerEvents: "none",
+        });
+      }
+
       // Timeline cuộn 220vh: 
       // - Chặng 1a (0 -> 22%): Hoa vừa nở vừa di chuyển dần ra CHÍNH GIỮA MÀN HÌNH (50vh), ĐẨY MẠNH chữ trên lên trên và chữ dưới xuống đáy
       // - Chặng 1b (22% -> 55%): Hoa ĐỨNG IM Ở CHÍNH GIỮA và tiếp tục phóng to đến khi nở trọn vẹn full banner
-      // - Chặng 2 (55% -> 100% ~100vh): Giữ nguyên 100% full banner cho người dùng cuộn ngắm thoải mái
+      // - Khi banner hiện hết (48% -> 58%): Bottom bar brxe-block xuất hiện mềm mại ở đáy màn hình
+      // - Chặng 2 (58% -> 100% ~100vh): Giữ nguyên 100% full banner & bottom bar cho người dùng trải nghiệm
       // - Sau 100%: Footer bắt đầu trồi lên từ đáy
       const animObj = { size: initialSize, centerY: initialCenterY };
 
@@ -151,10 +162,12 @@ export const useContactAnimation = ({
             animObj.centerY = initialCenterY;
             if (self.progress >= 0.55) {
               updateMask(targetSize, getDeadCenterY());
+              if (bottomBar) gsap.set(bottomBar, { opacity: 1, y: 0, pointerEvents: "auto" });
             } else if (self.progress <= 0) {
               updateMask(initialSize, initialCenterY);
               if (header) gsap.set(header, { y: 0, opacity: 1, scale: 1 });
               if (tip) gsap.set(tip, { y: 0, opacity: 1 });
+              if (bottomBar) gsap.set(bottomBar, { opacity: 0, y: 24, pointerEvents: "none" });
             } else {
               updateMask(animObj.size, animObj.centerY);
             }
@@ -227,6 +240,21 @@ export const useContactAnimation = ({
         },
         0
       );
+
+      // 5. Khi banner nở hết (48% -> 58%): Hiện trọn vẹn bottom bar brxe-block
+      if (bottomBar) {
+        tl.to(
+          bottomBar,
+          {
+            opacity: 1,
+            y: 0,
+            pointerEvents: "auto",
+            ease: "power2.out",
+            duration: 0.12,
+          },
+          0.48
+        );
+      }
     }, wrapper);
 
     // Refresh ScrollTrigger sau khi DOM đã ổn định để bắt chính xác tọa độ
@@ -239,7 +267,7 @@ export const useContactAnimation = ({
       clearTimeout(refreshTimer);
       ctx.revert();
     };
-  }, [wrapperRef, headerRef, stageRef, tipRef]);
+  }, [wrapperRef, headerRef, stageRef, tipRef, bottomBarRef]);
 };
 
 export default useContactAnimation;
