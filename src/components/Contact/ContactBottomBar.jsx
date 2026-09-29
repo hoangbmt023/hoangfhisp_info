@@ -11,7 +11,7 @@ import './ContactBottomBar.css';
 export const ContactBottomInfoText = ({
   title = "Hoàng Phạm • Portfolio",
   subtitle = "Creative Developer & Designer",
-  copyright = "© ℗ 2025 Hoangf Hisp • All Rights Reserved",
+  copyright = "© ℗ 2026 Hoangf Hisp • All Rights Reserved",
   className = "",
   id = ""
 }) => {
@@ -52,8 +52,8 @@ const ContactBottomBar = forwardRef((props, ref) => {
           <ContactBottomInfoText
             id="brxe-swlsgc"
             title="Hoàng Phạm • Portfolio"
-            subtitle="Creative Developer & Designer"
-            copyright="© ℗ 2025 Hoangf Hisp"
+            subtitle="Backend Developer & Engineer"
+            copyright="© ℗ 2026 Hoangf Hisp"
           />
         </div>
 
@@ -70,7 +70,7 @@ const ContactBottomBar = forwardRef((props, ref) => {
         className="contact-bottom-cta-btn"
         aria-label="Chuyển đến trang Liên Hệ"
       >
-        Liên Hệ
+        Liên Hệ Với Tôi
       </Link>
 
       {/* Cánh bên Phải (chiếm chính xác 50% bên phải) */}
@@ -85,8 +85,8 @@ const ContactBottomBar = forwardRef((props, ref) => {
           <ContactBottomInfoText
             id="brxe-gvepwq"
             title="Hoàng Phạm • Liên Hệ"
-            subtitle="Sẵn Sàng Hợp Tác & Freelance"
-            copyright="© ℗ 2025 All Rights Reserved"
+            subtitle="Sẵn Sàng Hợp Tác Với Các Bạn"
+            copyright="© ℗ 2026 All Rights Reserved"
           />
         </div>
 
