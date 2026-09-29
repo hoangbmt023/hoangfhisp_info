@@ -17,12 +17,14 @@ export const useContactAnimation = ({
   headerRef,
   stageRef,
   tipRef,
+  bottomBarRef,
 }) => {
   useEffect(() => {
-    const wrapper = wrapperRef.current;
-    const header = headerRef.current;
-    const stage = stageRef.current;
-    const tip = tipRef.current;
+    const wrapper = wrapperRef?.current;
+    const header = headerRef?.current;
+    const stage = stageRef?.current;
+    const tip = tipRef?.current;
+    const bottomBar = bottomBarRef?.current;
 
     if (!wrapper || !stage) return;
 
@@ -55,29 +57,24 @@ export const useContactAnimation = ({
       const imageLayer = stage.querySelector(".contact-portal-image-layer");
       const overlay = stage.querySelector(".contact-rose-lines-overlay");
 
-      let initialCenterY = Math.round(window.innerHeight * 0.57);
-      const getDeadCenterY = () => Math.round(window.innerHeight * 0.5);
-
-      // Tính toán toạ độ Y của tâm khoảng trống giữa header và tip (loại bỏ hoàn toàn sai số khi GSAP translate)
-      const syncFlowerCenter = () => {
-        if (!header || !tip || !stage) return;
-        
-        // Đo toạ độ gốc không bị ảnh hưởng bởi GSAP translate Y
-        const headerY = gsap.getProperty(header, "y") || 0;
-        const tipY = gsap.getProperty(tip, "y") || 0;
-
-        const headerRect = header.getBoundingClientRect();
-        const tipRect = tip.getBoundingClientRect();
-        const stageRect = stage.getBoundingClientRect();
-
-        const naturalHeaderBottom = headerRect.bottom - headerY - stageRect.top;
-        const naturalTipTop = tipRect.top - tipY - stageRect.top;
-        const calculatedY = Math.round((naturalHeaderBottom + naturalTipTop) / 2);
-
-        if (calculatedY > 0) {
-          initialCenterY = calculatedY;
+      // Tính toán toạ độ Y ban đầu chuẩn xác bằng offset DOM tự nhiên (KHÔNG BỊ ẢNH HƯỞNG BỞI GSAP TRANSFORM HAY SCROLL POSITION)
+      const getInitialCenterY = () => {
+        if (!header || !tip || !stage) {
+          return Math.round(window.innerHeight * (isMobile ? 0.58 : 0.65));
         }
+
+        const headerBottom = header.offsetTop + header.offsetHeight;
+        const tipTop = tip.offsetTop;
+
+        if (headerBottom > 0 && tipTop > headerBottom) {
+          return Math.round((headerBottom + tipTop) / 2);
+        }
+
+        return Math.round(window.innerHeight * (isMobile ? 0.58 : 0.65));
       };
+
+      const initialCenterY = getInitialCenterY();
+      const deadCenterY = Math.round(window.innerHeight * 0.5);
 
       const updateMask = (size, centerY = initialCenterY) => {
         const topPos = centerY - size / 2;
@@ -104,16 +101,13 @@ export const useContactAnimation = ({
         }
       };
 
-      syncFlowerCenter();
-      updateMask(initialSize, initialCenterY);
+      const animObj = { size: initialSize, centerY: initialCenterY };
 
       if (header) {
         gsap.set(header, {
           xPercent: -50,
           x: 0,
-          y: 0,
           scale: 1,
-          opacity: 1,
         });
       }
 
@@ -121,23 +115,16 @@ export const useContactAnimation = ({
         gsap.set(tip, {
           xPercent: -50,
           x: 0,
-          y: 0,
-          opacity: 1,
         });
       }
 
-      if (overlay) {
-        gsap.set(overlay, {
-          opacity: 1,
+      if (bottomBar) {
+        gsap.set(bottomBar, {
+          opacity: 0,
+          y: 24,
+          pointerEvents: "none",
         });
       }
-
-      // Timeline cuộn 220vh: 
-      // - Chặng 1a (0 -> 22%): Hoa vừa nở vừa di chuyển dần ra CHÍNH GIỮA MÀN HÌNH (50vh), ĐẨY MẠNH chữ trên lên trên và chữ dưới xuống đáy
-      // - Chặng 1b (22% -> 55%): Hoa ĐỨNG IM Ở CHÍNH GIỮA và tiếp tục phóng to đến khi nở trọn vẹn full banner
-      // - Chặng 2 (55% -> 100% ~100vh): Giữ nguyên 100% full banner cho người dùng cuộn ngắm thoải mái
-      // - Sau 100%: Footer bắt đầu trồi lên từ đáy
-      const animObj = { size: initialSize, centerY: initialCenterY };
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -147,14 +134,19 @@ export const useContactAnimation = ({
           scrub: true,
           invalidateOnRefresh: true,
           onRefresh: (self) => {
-            syncFlowerCenter();
-            animObj.centerY = initialCenterY;
+            const currentInitialY = getInitialCenterY();
             if (self.progress >= 0.55) {
-              updateMask(targetSize, getDeadCenterY());
+              updateMask(targetSize, deadCenterY);
+              if (overlay) gsap.set(overlay, { opacity: 0 });
+              if (header) gsap.set(header, { opacity: 0, y: -140, scale: 0.94 });
+              if (tip) gsap.set(tip, { opacity: 0, y: 90 });
+              if (bottomBar) gsap.set(bottomBar, { opacity: 1, y: 0, pointerEvents: "auto" });
             } else if (self.progress <= 0) {
-              updateMask(initialSize, initialCenterY);
+              updateMask(initialSize, currentInitialY);
+              if (overlay) gsap.set(overlay, { opacity: 1 });
               if (header) gsap.set(header, { y: 0, opacity: 1, scale: 1 });
               if (tip) gsap.set(tip, { y: 0, opacity: 1 });
+              if (bottomBar) gsap.set(bottomBar, { opacity: 0, y: 24, pointerEvents: "none" });
             } else {
               updateMask(animObj.size, animObj.centerY);
             }
@@ -205,10 +197,11 @@ export const useContactAnimation = ({
       }
 
       // 3. Hoa vừa nở vừa di chuyển sớm về CHÍNH GIỮA MÀN HÌNH (trong 22% đầu), sau đó ĐỨNG IM Ở GIỮA
-      tl.to(
+      tl.fromTo(
         animObj,
+        { centerY: initialCenterY },
         {
-          centerY: getDeadCenterY(),
+          centerY: deadCenterY,
           ease: "power2.out",
           duration: 0.22,
           onUpdate: () => updateMask(animObj.size, animObj.centerY),
@@ -217,8 +210,9 @@ export const useContactAnimation = ({
       );
 
       // 4. Hoa tiếp tục phóng to đều đặn từ 0 -> 55% chặng cuộn cho đến khi mở hết cỡ
-      tl.to(
+      tl.fromTo(
         animObj,
+        { size: initialSize },
         {
           size: targetSize,
           ease: "sine.inOut",
@@ -227,6 +221,21 @@ export const useContactAnimation = ({
         },
         0
       );
+
+      // 5. Khi banner nở hết (48% -> 58%): Hiện trọn vẹn bottom bar brxe-block
+      if (bottomBar) {
+        tl.to(
+          bottomBar,
+          {
+            opacity: 1,
+            y: 0,
+            pointerEvents: "auto",
+            ease: "power2.out",
+            duration: 0.12,
+          },
+          0.48
+        );
+      }
     }, wrapper);
 
     // Refresh ScrollTrigger sau khi DOM đã ổn định để bắt chính xác tọa độ
@@ -239,7 +248,7 @@ export const useContactAnimation = ({
       clearTimeout(refreshTimer);
       ctx.revert();
     };
-  }, [wrapperRef, headerRef, stageRef, tipRef]);
+  }, [wrapperRef, headerRef, stageRef, tipRef, bottomBarRef]);
 };
 
 export default useContactAnimation;
